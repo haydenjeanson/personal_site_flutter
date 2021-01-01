@@ -30,6 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Row(
                 children: <Widget>[
                   Expanded(
+                    flex: 3,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: FittedBox(
@@ -44,6 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                   Expanded(
+                    flex: 2,
                     child: Container(
                       alignment: Alignment.centerRight,
                       child: ClipRRect(
