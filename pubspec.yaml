@@ -47,6 +47,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - images/welcome_screen/wallpaper-640.jpg
+    - images/welcome_screen/wallpaper-1280.jpg
     - images/welcome_screen/wallpaper-2560.jpg
     - images/welcome_screen/hayden.png
 

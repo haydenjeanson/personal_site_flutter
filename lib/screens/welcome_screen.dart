@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_image/responsive_image.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -11,12 +12,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Image.asset(
-            "images/welcome_screen/wallpaper-2560.jpg",
-            fit: BoxFit.fill,
-            height: double.infinity,
-            width: double.infinity,
+          ResponsiveImage(
+            srcSet: {
+              2560: "images/welcome_screen/wallpaper-2560.jpg",
+              1280: "images/welcome_screen/wallpaper-1280.jpg",
+              320: "images/welcome_screen/wallpaper-640.jpg",
+            },
+            // scalePreference: ScalePreference.Upper,
+            builder: (BuildContext context, String src) {
+              return Image.asset(
+                src,
+                fit: BoxFit.fill,
+                height: double.infinity,
+                width: double.infinity,
+              );
+            },
           ),
+          // Image.asset(
+          //   "images/welcome_screen/wallpaper-2560.jpg",
+          //   fit: BoxFit.fill,
+          //   height: double.infinity,
+          //   width: double.infinity,
+          // ),
           Positioned(
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width / 2,
