@@ -22,9 +22,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             width: MediaQuery.of(context).size.width / 2,
             top: MediaQuery.of(context).size.height / 4,
             right: MediaQuery.of(context).size.height / 8,
-            child: Card(
-              color: Theme.of(context).colorScheme.background.withOpacity(0.5),
-              shape: RoundedRectangleBorder(
+            child: Container(
+              decoration: BoxDecoration(
+                  color:
+                      Theme.of(context).colorScheme.background.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(8.0)),
               child: Row(
                 children: <Widget>[
@@ -42,11 +43,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     ),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(8.0),
-                        bottomRight: Radius.circular(8.0)),
-                    child: Image.asset("images/welcome_screen/hayden.png"),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(8.0),
+                            bottomRight: Radius.circular(8.0)),
+                        child: Image.asset("images/welcome_screen/hayden.png"),
+                      ),
+                    ),
                   ),
                 ],
               ),
