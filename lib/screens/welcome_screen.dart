@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:responsive_image/responsive_image.dart';
 
+import '../contants.dart';
+
 class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -47,10 +49,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       child: FittedBox(
                         child: Text(
                           "Hayden\n    Jeanson",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontFamily: 'AlegreyaSans',
-                          ),
+                          style: kNavTextStyle,
                         ),
                       ),
                     ),
@@ -74,8 +73,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: RadialMenu(),
+              padding:
+                  EdgeInsets.only(left: MediaQuery.of(context).size.width / 50),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 15,
+                child: RadialMenu(),
+              ),
             ),
           ),
         ],
