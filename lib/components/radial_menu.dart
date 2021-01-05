@@ -156,7 +156,7 @@ class RadialAnimation extends StatelessWidget {
         ),
         child: Text(text, style: kNavTextStyle),
         onPressed: () {
-          print("hello");
+          print(text);
           _close();
         },
       ),
