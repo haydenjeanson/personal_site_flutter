@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:responsive_image/responsive_image.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -18,7 +19,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               1280: "images/welcome_screen/wallpaper-1280.jpg",
               320: "images/welcome_screen/wallpaper-640.jpg",
             },
-            // scalePreference: ScalePreference.Upper,
             builder: (BuildContext context, String src) {
               return Image.asset(
                 src,
@@ -28,12 +28,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               );
             },
           ),
-          // Image.asset(
-          //   "images/welcome_screen/wallpaper-2560.jpg",
-          //   fit: BoxFit.fill,
-          //   height: double.infinity,
-          //   width: double.infinity,
-          // ),
           Positioned(
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width / 2,
@@ -75,6 +69,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ],
               ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: RadialMenu(),
             ),
           ),
         ],
