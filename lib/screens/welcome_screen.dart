@@ -70,17 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: MediaQuery.of(context).size.width / 50),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 15,
-                child: RadialMenu(),
-              ),
-            ),
-          ),
+          RadialMenu()
         ],
       ),
     );
