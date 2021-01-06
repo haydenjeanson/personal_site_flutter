@@ -28,6 +28,12 @@ class _RadialMenuState extends State<RadialMenu>
       child: RadialAnimation(controller: controller),
     );
   }
+
+  @override
+  void dispose() {
+    this.controller.dispose();
+    super.dispose();
+  }
 }
 
 class RadialAnimation extends StatelessWidget {
