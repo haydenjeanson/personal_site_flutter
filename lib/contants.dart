@@ -28,3 +28,6 @@ const ColorScheme kMainColourScheme = ColorScheme(
 );
 
 const double kDefaultBoxOpacity = 0.5;
+
+const double kHeaderHeightMultiplier = 1 / 6;
+const double kHeaderWidthMultiplier = 3 / 8;

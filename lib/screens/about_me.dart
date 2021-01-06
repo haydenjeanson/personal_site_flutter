@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
+import 'package:personal_site_flutter/components/background_box.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
-import 'package:responsive_image/responsive_image.dart';
+import 'package:personal_site_flutter/contants.dart';
 
 class AboutMe extends StatefulWidget {
   static const String kID = "about_me";
@@ -12,8 +14,7 @@ class AboutMe extends StatefulWidget {
 }
 
 class _AboutMeState extends State<AboutMe> {
-  final double kHeaderHeightMultiplier = 1 / 6;
-  final double kHeaderWidthMultiplier = 3 / 8;
+  final double opacity = 0.75;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +38,20 @@ class _AboutMeState extends State<AboutMe> {
             top: 0,
             child: NameContainer(
               text: 'Hayden Jeanson',
-              opacity: 0.75,
+              opacity: this.opacity,
             ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * kHeaderHeightMultiplier,
+            height: MediaQuery.of(context).size.height -
+                (MediaQuery.of(context).size.height * kHeaderHeightMultiplier),
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AnimatedBox(
+                  colour: Theme.of(context).colorScheme.secondaryVariant,
+                  opacity: this.opacity,
+                )),
           ),
           Positioned(
             left: -(MediaQuery.of(context).size.width / 3),
