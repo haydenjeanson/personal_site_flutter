@@ -38,9 +38,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             width: MediaQuery.of(context).size.width * 2 / 3,
             top: MediaQuery.of(context).size.height / 6,
             right: MediaQuery.of(context).size.height / 8,
-            child: Hero(
-              tag: kNameHeroTag,
-              child: NameContainer(),
+            child: NameContainer(
+              text: 'Hayden\n    Jeanson',
             ),
           ),
           Positioned(

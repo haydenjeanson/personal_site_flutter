@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/contants.dart';
 
-class NameContainer extends StatefulWidget {
-  @override
-  _NameContainerState createState() => _NameContainerState();
-}
+class NameContainer extends StatelessWidget {
+  final String text;
 
-class _NameContainerState extends State<NameContainer> {
+  const NameContainer({@required this.text});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(8.0)),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: FittedBox(
-                child: Text(
-                  "Hayden\n    Jeanson",
-                  style: kNavTextStyle,
+    return Hero(
+      tag: kNameHeroTag,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(8.0)),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(
+              flex: 3,
+              child: Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: FittedBox(
+                    child: Text(
+                      text,
+                      style: kNavTextStyle,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
+            Container(
               alignment: Alignment.centerRight,
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -38,8 +41,8 @@ class _NameContainerState extends State<NameContainer> {
                 child: Image.asset("images/welcome_screen/hayden.png"),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

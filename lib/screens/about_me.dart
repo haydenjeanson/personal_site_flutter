@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
 
 class AboutMe extends StatefulWidget {
@@ -14,7 +15,15 @@ class _AboutMeState extends State<AboutMe> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(child: Container()),
+          Positioned(
+            height: MediaQuery.of(context).size.height / 6,
+            width: MediaQuery.of(context).size.width * 3 / 8,
+            left: ((MediaQuery.of(context).size.width) -
+                    (MediaQuery.of(context).size.width * 3 / 8)) /
+                2,
+            top: 0,
+            child: NameContainer(text: 'Hayden Jeanson'),
+          ),
           Positioned(
             left: -(MediaQuery.of(context).size.width / 3),
             child: RadialMenu(),
