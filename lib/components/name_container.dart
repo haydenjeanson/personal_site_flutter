@@ -3,8 +3,9 @@ import 'package:personal_site_flutter/contants.dart';
 
 class NameContainer extends StatelessWidget {
   final String text;
+  final double opacity;
 
-  const NameContainer({@required this.text});
+  const NameContainer({@required this.text, this.opacity = 0.5});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,10 @@ class NameContainer extends StatelessWidget {
       tag: kNameHeroTag,
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background.withOpacity(0.5),
+            color: Theme.of(context)
+                .colorScheme
+                .background
+                .withOpacity(this.opacity),
             borderRadius: BorderRadius.circular(8.0)),
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -25,7 +29,7 @@ class NameContainer extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: FittedBox(
                     child: Text(
-                      text,
+                      this.text,
                       style: kNavTextStyle,
                     ),
                   ),

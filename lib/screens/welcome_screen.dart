@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:responsive_image/responsive_image.dart';
@@ -18,21 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          ResponsiveImage(
-            srcSet: {
-              2560: "images/welcome_screen/wallpaper-2560.jpg",
-              1280: "images/welcome_screen/wallpaper-1280.jpg",
-              320: "images/welcome_screen/wallpaper-640.jpg",
-            },
-            builder: (BuildContext context, String src) {
-              return Image.asset(
-                src,
-                fit: BoxFit.fill,
-                height: double.infinity,
-                width: double.infinity,
-              );
-            },
-          ),
+          Background(),
           Positioned(
             height: MediaQuery.of(context).size.height * 2 / 3,
             width: MediaQuery.of(context).size.width * 2 / 3,
