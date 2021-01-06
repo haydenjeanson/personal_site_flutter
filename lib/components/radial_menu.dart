@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:personal_site_flutter/contants.dart';
+import 'package:personal_site_flutter/screens/about_me.dart';
+import 'package:personal_site_flutter/screens/contact_me.dart';
+import 'package:personal_site_flutter/screens/projects.dart';
+import 'package:personal_site_flutter/screens/welcome_screen.dart';
 
 class RadialMenu extends StatefulWidget {
   @override
@@ -20,11 +24,8 @@ class _RadialMenuState extends State<RadialMenu>
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: -(MediaQuery.of(context).size.width / 3),
-      child: Container(
-        child: RadialAnimation(controller: controller),
-      ),
+    return Container(
+      child: RadialAnimation(controller: controller),
     );
   }
 }
@@ -85,17 +86,25 @@ class RadialAnimation extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 _buildButton(context, 3 * pi / 2,
-                    color: Colors.pink, text: 'Home'),
-                _buildButton(context, 11 * pi / 6, // 0 is east
+                    color: Colors.pink,
+                    text: 'Home',
+                    routeName: WelcomeScreen.kID),
+                _buildButton(context, 11 * pi / 6,
                     color: Colors.red,
-                    text: 'About Me'),
+                    text: 'About Me',
+                    routeName: AboutMe.kID),
                 _buildButton(context, pi / 6,
-                    color: Colors.green, text: 'Projects'),
+                    color: Colors.green,
+                    text: 'Projects',
+                    routeName: Projects.kID),
                 _buildButton(context, pi / 2,
-                    color: Colors.orange, text: "Contact Me"),
+                    color: Colors.orange,
+                    text: 'Contact Me',
+                    routeName: ContactMe.kID),
                 Transform.scale(
                   scale: scale.value - kScaleMax,
                   child: FloatingActionButton(
+                    heroTag: 'close_button',
                     onPressed: _close,
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: Icon(
@@ -107,6 +116,7 @@ class RadialAnimation extends StatelessWidget {
                 Transform.scale(
                   scale: scale.value,
                   child: FloatingActionButton(
+                    heroTag: 'open_button',
                     onPressed: _open,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     child: Icon(
@@ -124,7 +134,8 @@ class RadialAnimation extends StatelessWidget {
   }
 
   // angle (radians)
-  _buildButton(context, double angle, {Color color, String text}) {
+  _buildButton(context, double angle,
+      {Color color, String text, String routeName}) {
     Animation<double> translation = Tween<double>(
       begin: 0.0,
       end: MediaQuery.of(context).size.width / 9,
@@ -145,20 +156,25 @@ class RadialAnimation extends StatelessWidget {
           (translation.value) * sin(angle),
         )
         ..scale(-(scale.value - kScaleMax)),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          minimumSize: Size(
-            MediaQuery.of(context).size.width / 8,
-            MediaQuery.of(context).size.height / 24,
+      child: Hero(
+        tag: routeName,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            minimumSize: Size(
+              MediaQuery.of(context).size.width / 8,
+              MediaQuery.of(context).size.height / 24,
+            ),
           ),
+          child: Text(text, style: kNavTextStyle),
+          onPressed: () {
+            _close();
+            if (ModalRoute.of(context).settings.name != routeName) {
+              Navigator.pushNamed(context, routeName);
+            }
+          },
         ),
-        child: Text(text, style: kNavTextStyle),
-        onPressed: () {
-          print(text);
-          _close();
-        },
       ),
     );
   }

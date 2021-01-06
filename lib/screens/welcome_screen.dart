@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:responsive_image/responsive_image.dart';
 
 import '../contants.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  static const String kID = 'welcome_screen';
+
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -31,46 +34,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
           ),
           Positioned(
-            height: MediaQuery.of(context).size.height / 2,
-            width: MediaQuery.of(context).size.width / 2,
-            top: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height * 2 / 3,
+            width: MediaQuery.of(context).size.width * 2 / 3,
+            top: MediaQuery.of(context).size.height / 6,
             right: MediaQuery.of(context).size.height / 8,
-            child: Container(
-              decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).colorScheme.background.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(8.0)),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: FittedBox(
-                        child: Text(
-                          "Hayden\n    Jeanson",
-                          style: kNavTextStyle,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8.0),
-                            bottomRight: Radius.circular(8.0)),
-                        child: Image.asset("images/welcome_screen/hayden.png"),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            child: Hero(
+              tag: kNameHeroTag,
+              child: NameContainer(),
             ),
           ),
-          RadialMenu()
+          Positioned(
+            left: -(MediaQuery.of(context).size.width / 3),
+            child: RadialMenu(),
+          ),
         ],
       ),
     );
