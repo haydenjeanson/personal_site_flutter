@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:personal_site_flutter/components/about_me/fav_activity_1.dart';
+import 'package:personal_site_flutter/components/about_me/fav_activity_2.dart';
+import 'package:personal_site_flutter/components/about_me/fav_activity_3.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
@@ -60,8 +62,7 @@ class _AboutMeState extends State<AboutMe> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AnimatedBox(
-                          colour:
-                              Theme.of(context).colorScheme.secondaryVariant,
+                          colour: Theme.of(context).colorScheme.secondary,
                           opacity: this.opacity,
                           child: Padding(
                             padding: EdgeInsets.all(10),
@@ -76,6 +77,10 @@ class _AboutMeState extends State<AboutMe> {
                                       fontSize: 25),
                                 ),
                                 FavActivity1(),
+                                _ActivityDivider(),
+                                FavActivity2(),
+                                _ActivityDivider(),
+                                FavActivity3(),
                               ],
                             ),
                           ),
@@ -93,6 +98,17 @@ class _AboutMeState extends State<AboutMe> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ActivityDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 0,
+      indent: MediaQuery.of(context).size.width / 3,
+      endIndent: MediaQuery.of(context).size.width / 3,
     );
   }
 }

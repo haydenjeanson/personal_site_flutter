@@ -4,38 +4,45 @@ import 'package:personal_site_flutter/constants.dart';
 class FavActivity1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        Padding(
-          padding:
-              const EdgeInsets.only(top: kLineSpacing, left: kIndentDistance),
-          child: Text(
-            "1) My software engineering course group project: This was a React Native mobile app designed to find nearby bus stops and routes in the GRT transit system. I learned about:",
+    return Padding(
+      padding: const EdgeInsets.only(top: kLineSpacing, left: kIndentDistance),
+      child: Wrap(
+        children: [
+          Text(
+            "1) Building this site! This site is built using flutter, and I think it's really cool that it would work the same whether I ran it as an app or webpage! This site has given me a chance to use these skills:",
             style: kParagraphTextStyle,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-              top: kLineSpacing, left: kIndentDistance * 2),
-          child: Wrap(
-            spacing: kIndentDistance,
-            children: [
-              Text(
-                "• the group development process",
-                style: kParagraphTextStyle,
-              ),
-              Text(
-                "• the Google Maps API",
-                style: kParagraphTextStyle,
-              ),
-              Text(
-                "• React Native development",
-                style: kParagraphTextStyle,
-              ),
-            ],
-          ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.only(
+                top: kLineSpacing, bottom: kLineSpacing, left: kIndentDistance),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "• Modular programming",
+                  style: kParagraphTextStyle,
+                ),
+                Text(
+                  "• Knowledge of the flutter framework and dart",
+                  style: kParagraphTextStyle,
+                ),
+                Text(
+                  "• Version control with Git",
+                  style: kParagraphTextStyle,
+                ),
+                Text(
+                  "• Publishing a website: I'm using GitHub Pages and Namecheap",
+                  style: kParagraphTextStyle,
+                ),
+                Text(
+                  "• Soft skills such as: Problem solving, creativity, time management",
+                  style: kParagraphTextStyle,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
