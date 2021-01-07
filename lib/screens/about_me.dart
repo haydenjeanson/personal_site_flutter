@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:personal_site_flutter/components/about_me/fav_activity_1.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
-import 'package:personal_site_flutter/components/background_box.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
-import 'package:personal_site_flutter/contants.dart';
+import 'package:personal_site_flutter/constants.dart';
 
 class AboutMe extends StatefulWidget {
   static const String kID = "about_me";
@@ -18,6 +18,8 @@ class _AboutMeState extends State<AboutMe> {
 
   @override
   Widget build(BuildContext context) {
+    final double radialDistance =
+        (MediaQuery.of(context).size.width * kRadialMenuDistance);
     return Scaffold(
       body: Stack(
         children: [
@@ -46,15 +48,47 @@ class _AboutMeState extends State<AboutMe> {
             height: MediaQuery.of(context).size.height -
                 (MediaQuery.of(context).size.height * kHeaderHeightMultiplier),
             width: MediaQuery.of(context).size.width,
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AnimatedBox(
-                  colour: Theme.of(context).colorScheme.secondaryVariant,
-                  opacity: this.opacity,
-                )),
+            child: ListView(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 8,
+                      height: 20,
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AnimatedBox(
+                          colour:
+                              Theme.of(context).colorScheme.secondaryVariant,
+                          opacity: this.opacity,
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Wrap(
+                              children: [
+                                Text(
+                                  "Hi, and welcome to my site! I'm a fourth year BSc computer science student at Wilfred Laurier University. I have a passion for software development, and I love to solve difficult problems. Recently, some of my favorite programming related activities have been: ",
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontSize: 25),
+                                ),
+                                FavActivity1(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           Positioned(
-            left: -(MediaQuery.of(context).size.width / 3),
+            right: radialDistance,
             child: RadialMenu(),
           ),
         ],

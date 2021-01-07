@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_site_flutter/contants.dart';
+import 'package:personal_site_flutter/constants.dart';
 
 // ignore: must_be_immutable
 class BackgroundBox extends StatelessWidget {

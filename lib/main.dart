@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_site_flutter/contants.dart';
+import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';

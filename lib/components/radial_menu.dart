@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:personal_site_flutter/contants.dart';
+import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/screens/about_me.dart';
 import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
@@ -42,7 +42,7 @@ class RadialAnimation extends StatelessWidget {
   final Animation<double> boxScale;
   final Animation<double> rotation;
 
-  static const double kScaleMax = 2.0;
+  static const double kScaleMax = 1.5;
   static const double kMenuExpansion = 150;
 
   RadialAnimation({Key key, this.controller})
@@ -170,10 +170,10 @@ class RadialAnimation extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
             minimumSize: Size(
               MediaQuery.of(context).size.width / 8,
-              MediaQuery.of(context).size.height / 24,
+              MediaQuery.of(context).size.height * 2 / 30,
             ),
           ),
-          child: Text(text, style: kNavTextStyle),
+          child: Text(text, style: kNavTextStyle.copyWith(fontSize: 30)),
           onPressed: () {
             _close();
             if (ModalRoute.of(context).settings.name != routeName) {

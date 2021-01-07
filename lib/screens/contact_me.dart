@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
+import 'package:personal_site_flutter/constants.dart';
 
 class ContactMe extends StatefulWidget {
   static const String kID = 'contact_me';
@@ -14,7 +15,7 @@ class _ContactMeState extends State<ContactMe> {
     return Scaffold(
       body: Stack(children: [
         Positioned(
-          left: -(MediaQuery.of(context).size.width / 3),
+          right: (MediaQuery.of(context).size.width * kRadialMenuDistance),
           child: RadialMenu(),
         ),
       ]),

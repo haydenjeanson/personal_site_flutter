@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/background_box.dart';
-import 'package:personal_site_flutter/contants.dart';
+import 'package:personal_site_flutter/constants.dart';
 
 class AnimatedBox extends StatefulWidget {
   Color colour;

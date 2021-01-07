@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
-import 'package:responsive_image/responsive_image.dart';
+import 'package:personal_site_flutter/constants.dart';
 
-import '../contants.dart';
+import '../constants.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String kID = 'welcome_screen';
@@ -30,7 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
           Positioned(
-            left: -(MediaQuery.of(context).size.width / 3),
+            right: (MediaQuery.of(context).size.width * kRadialMenuDistance),
             child: RadialMenu(),
           ),
         ],
