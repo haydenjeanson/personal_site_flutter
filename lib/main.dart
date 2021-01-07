@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
         title: 'Hayden Jeanson',
         theme: ThemeData(
           colorScheme: kMainColourScheme,
+          dividerTheme: DividerThemeData(
+            color: kMainColourScheme.secondaryVariant,
+            thickness: 2,
+          ),
         ),
         home: WelcomeScreen(),
         initialRoute: WelcomeScreen.kID,
