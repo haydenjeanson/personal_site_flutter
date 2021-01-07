@@ -21,15 +21,15 @@ class FavActivity1 extends StatelessWidget {
             spacing: kIndentDistance,
             children: [
               Text(
-                "• the group development process;",
+                "• the group development process",
                 style: kParagraphTextStyle,
               ),
               Text(
-                "• the Google Maps API;",
+                "• the Google Maps API",
                 style: kParagraphTextStyle,
               ),
               Text(
-                "• and React Native development.",
+                "• React Native development",
                 style: kParagraphTextStyle,
               ),
             ],
