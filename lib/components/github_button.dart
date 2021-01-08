@@ -23,7 +23,7 @@ class GithubButton extends StatelessWidget {
           shape: CircleBorder(),
           hoverColor: Colors.black.withOpacity(0.5),
           constraints: BoxConstraints(minHeight: 0, minWidth: 0),
-          child: Image.network(src),
+          child: Image.asset(src),
         );
       },
     );
