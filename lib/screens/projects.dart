@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
+import 'package:personal_site_flutter/components/sidebar.dart';
 import 'package:personal_site_flutter/constants.dart';
 
 class Projects extends StatefulWidget {
@@ -16,10 +17,7 @@ class _ProjectsState extends State<Projects> {
     return Scaffold(
       body: Stack(children: [
         AnimatedBox(),
-        Positioned(
-          right: (MediaQuery.of(context).size.width * kRadialMenuDistance),
-          child: RadialMenu(),
-        ),
+        Sidebar(),
       ]),
     );
   }
