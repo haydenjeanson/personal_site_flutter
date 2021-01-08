@@ -122,6 +122,7 @@ class RadialAnimation extends StatelessWidget {
                         onPressed: _close,
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
+                        hoverColor: Colors.black.withOpacity(0.2),
                         child: SvgPicture.asset(
                           'images/cancel-icon.svg',
                           height: 30,
@@ -141,6 +142,7 @@ class RadialAnimation extends StatelessWidget {
                         heroTag: 'open_button',
                         onPressed: _open,
                         backgroundColor: Theme.of(context).colorScheme.primary,
+                        hoverColor: Colors.black.withOpacity(0.2),
                         child: SvgPicture.asset(
                           'images/apps-icon.svg',
                           height: 30,
