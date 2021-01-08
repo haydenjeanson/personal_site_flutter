@@ -4,6 +4,8 @@ import 'package:personal_site_flutter/components/about_me/fav_activity_2.dart';
 import 'package:personal_site_flutter/components/about_me/fav_activity_3.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
+import 'package:personal_site_flutter/components/github_button.dart';
+import 'package:personal_site_flutter/components/linkedin_button.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:personal_site_flutter/constants.dart';
@@ -22,6 +24,9 @@ class _AboutMeState extends State<AboutMe> {
   Widget build(BuildContext context) {
     final double radialDistance =
         (MediaQuery.of(context).size.width * kRadialMenuDistance);
+    final double buttonHeight = MediaQuery.of(context).size.height / 7;
+    final double buttonWidth = MediaQuery.of(context).size.width / 9;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -90,6 +95,39 @@ class _AboutMeState extends State<AboutMe> {
                   ],
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: MediaQuery.of(context).size.height / 4,
+            height: buttonHeight,
+            width: buttonWidth,
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  shape: BoxShape.circle),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: GithubButton(url: 'https://github.com/haydenjeanson'),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            bottom: MediaQuery.of(context).size.height / 4,
+            height: buttonHeight,
+            width: buttonWidth,
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  shape: BoxShape.circle),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: LinkedinButton(
+                    url: 'https://www.linkedin.com/in/hayden-jeanson/'),
+              ),
             ),
           ),
           Positioned(

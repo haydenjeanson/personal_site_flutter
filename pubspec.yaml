@@ -54,6 +54,7 @@ flutter:
     - images/GitHub-Mark-120px-plus.png
     - images/apps-icon.svg
     - images/cancel-icon.svg
+    - images/LI-In-Bug.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
