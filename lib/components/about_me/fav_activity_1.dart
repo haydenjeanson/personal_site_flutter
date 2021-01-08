@@ -35,7 +35,7 @@ class FavActivity1 extends StatelessWidget {
                   style: kParagraphTextStyle,
                 ),
                 Text(
-                  "• Soft skills such as: Problem solving, creativity, time management",
+                  "• Soft skills such as: Problem solving, creativity, and time management",
                   style: kParagraphTextStyle,
                 ),
               ],
