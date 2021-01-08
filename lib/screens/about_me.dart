@@ -69,7 +69,7 @@ class _AboutMeState extends State<AboutMe> {
                             child: Wrap(
                               children: [
                                 Text(
-                                  "Hi, and welcome to my site! I'm a fourth year BSc computer science student at Wilfred Laurier University. I have a passion for software development, and I love to solve difficult problems. Recently, some of my favorite programming related activities have been: ",
+                                  "Hi, and welcome to my site! I'm a fourth year BSc computer science student at Wilfrid Laurier University. I have a passion for software development, and I love to solve difficult problems. Recently, some of my favorite programming related activities have been: ",
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
