@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_flutter/components/github_button.dart';
 import 'package:personal_site_flutter/constants.dart';
+import 'package:personal_site_flutter/screens/welcome_screen.dart';
+import 'package:responsive_image/responsive_image.dart';
 
 class FavActivity1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: kLineSpacing, left: kIndentDistance),
+      padding: const EdgeInsets.only(top: kLineSpacing),
       child: Wrap(
         children: [
-          Text(
-            "1) Building this site! This site is built using flutter, and I think it's really cool that it would work the same whether I ran it as an app or webpage! This site has given me a chance to use these skills:",
-            style: kParagraphTextStyle,
+          Row(
+            children: [
+              GithubButton(
+                  url:
+                      'https://github.com/haydenjeanson/personal_site_flutter'),
+              Flexible(
+                child: Text(
+                  "1) Building this site! This site is built using flutter, and I think it's really cool that it would work the same whether I ran it as an app or webpage! This site has given me a chance to use these skills:",
+                  style: kParagraphTextStyle,
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(
-                top: kLineSpacing, bottom: kLineSpacing, left: kIndentDistance),
+                top: kLineSpacing,
+                bottom: kLineSpacing,
+                left: kIndentDistance * 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
