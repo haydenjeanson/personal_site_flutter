@@ -5,6 +5,7 @@ import 'package:personal_site_flutter/screens/about_me.dart';
 import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RadialMenu extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class RadialAnimation extends StatelessWidget {
             parent: controller,
             curve: Interval(
               0.3,
-              1.0, // 0, 0.7: Start right away, end at 70% into the animation
+              1.0,
               curve: Curves.decelerate,
             ),
           ),
@@ -80,6 +81,9 @@ class RadialAnimation extends StatelessWidget {
         super(key: key);
 
   build(context) {
+    double buttonWidth = MediaQuery.of(context).size.height / 8;
+    double buttonHeight = MediaQuery.of(context).size.height / 10;
+
     return AnimatedBuilder(
       animation: controller,
       builder: (context, builder) {
@@ -109,25 +113,40 @@ class RadialAnimation extends StatelessWidget {
                     routeName: ContactMe.kID),
                 Transform.scale(
                   scale: scale.value - kScaleMax,
-                  child: FloatingActionButton(
-                    heroTag: 'close_button',
-                    onPressed: _close,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    child: Icon(
-                      Icons.cancel,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                  child: Container(
+                    height: buttonHeight,
+                    width: buttonWidth,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        heroTag: 'close_button',
+                        onPressed: _close,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        child: SvgPicture.asset(
+                          'images/cancel-icon.svg',
+                          height: 30,
+                          width: 30,
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 Transform.scale(
                   scale: scale.value,
-                  child: FloatingActionButton(
-                    heroTag: 'open_button',
-                    onPressed: _open,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    child: Icon(
-                      Icons.apps,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                  child: Container(
+                    height: buttonHeight,
+                    width: buttonWidth,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        heroTag: 'open_button',
+                        onPressed: _open,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        child: SvgPicture.asset(
+                          'images/apps-icon.svg',
+                          height: 30,
+                          width: 30,
+                        ),
+                      ),
                     ),
                   ),
                 ),
