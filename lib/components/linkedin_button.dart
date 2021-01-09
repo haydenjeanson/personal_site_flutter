@@ -8,19 +8,18 @@ class LinkedinButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      child: RawMaterialButton(
-        onPressed: () {
-          Util.launchURL(this.url);
-        },
-        hoverColor: Colors.black.withOpacity(0.3),
-        constraints: BoxConstraints(minHeight: 0, minWidth: 0),
-        child: Container(
-          child: Image.asset(
-            'images/LI-In-Bug.png',
-            height: MediaQuery.of(context).size.height / 11,
-            width: MediaQuery.of(context).size.height / 11,
-          ),
+    return RawMaterialButton(
+      onPressed: () {
+        Util.launchURL(this.url);
+      },
+      hoverColor: Colors.black.withOpacity(0.3),
+      shape: CircleBorder(),
+      constraints: BoxConstraints(minHeight: 0, minWidth: 0),
+      child: Container(
+        child: Image.asset(
+          'images/LI-In-Bug.png',
+          height: MediaQuery.of(context).size.width / 18,
+          width: MediaQuery.of(context).size.width / 18,
         ),
       ),
     );
