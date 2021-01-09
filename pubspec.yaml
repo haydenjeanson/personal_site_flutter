@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
   responsive_image: ^0.1.0
   url_launcher: ^5.7.10
-  flutter_svg: ^0.19.2+1
 
 dev_dependencies:
   flutter_test:
@@ -45,16 +44,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/welcome_screen/wallpaper-640.jpg
-    - images/welcome_screen/wallpaper-1280.jpg
-    - images/welcome_screen/wallpaper-2560.jpg
-    - images/welcome_screen/hayden.png
-    - images/GitHub-Mark-32px.png
-    - images/GitHub-Mark-64px.png
-    - images/GitHub-Mark-120px-plus.png
-    - images/apps-icon.svg
-    - images/cancel-icon.svg
-    - images/LI-In-Bug.png
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

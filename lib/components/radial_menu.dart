@@ -5,7 +5,7 @@ import 'package:personal_site_flutter/screens/about_me.dart';
 import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:responsive_image/responsive_image.dart';
 
 class RadialMenu extends StatefulWidget {
   @override
@@ -123,10 +123,16 @@ class RadialAnimation extends StatelessWidget {
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
                         hoverColor: Colors.black.withOpacity(0.2),
-                        child: SvgPicture.asset(
-                          'images/cancel-icon.svg',
-                          height: 30,
-                          width: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ResponsiveImage(
+                            srcSet: {
+                              18: 'images/cancel-icon-18dp.png',
+                              24: 'images/cancel-icon-24dp.png',
+                              36: 'images/cancel-icon-36dp.png',
+                              48: 'images/cancel-icon-48dp.png',
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -143,10 +149,16 @@ class RadialAnimation extends StatelessWidget {
                         onPressed: _open,
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         hoverColor: Colors.black.withOpacity(0.2),
-                        child: SvgPicture.asset(
-                          'images/apps-icon.svg',
-                          height: 30,
-                          width: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ResponsiveImage(
+                            srcSet: {
+                              18: 'images/apps-icon-18dp.png',
+                              24: 'images/apps-icon-24dp.png',
+                              36: 'images/apps-icon-36dp.png',
+                              48: 'images/apps-icon-48dp.png',
+                            },
+                          ),
                         ),
                       ),
                     ),
