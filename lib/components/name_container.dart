@@ -2,11 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/background_box.dart';
 import 'package:personal_site_flutter/constants.dart';
 
-class NameContainer extends StatelessWidget {
+class NameContainer extends StatefulWidget {
   final String text;
   final double opacity;
 
   const NameContainer({@required this.text, this.opacity = kDefaultBoxOpacity});
+
+  @override
+  _NameContainerState createState() =>
+      _NameContainerState(text: this.text, opacity: this.opacity);
+}
+
+class _NameContainerState extends State<NameContainer> {
+  final String text;
+  final double opacity;
+
+  AssetImage _imageToShow = new AssetImage("images/welcome_screen/hayden.png");
+
+  _NameContainerState({@required this.text, this.opacity = kDefaultBoxOpacity});
+
+  void updateImage() {
+    setState(() {
+      _imageToShow = new AssetImage("images/welcome_screen/hayden.png");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -31,13 +51,20 @@ class NameContainer extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
+            Expanded(
+              flex: 2,
+              child: Container(
+                alignment: Alignment.centerRight,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
                     topRight: Radius.circular(8.0),
-                    bottomRight: Radius.circular(8.0)),
-                child: Image.asset("images/welcome_screen/hayden.png"),
+                    bottomRight: Radius.circular(8.0),
+                  ),
+                  image: new DecorationImage(
+                      alignment: Alignment.topCenter,
+                      image: _imageToShow,
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
           ],
@@ -46,3 +73,47 @@ class NameContainer extends StatelessWidget {
     );
   }
 }
+// class NameContainer extends StatelessWidget {
+//   final String text;
+//   final double opacity;
+
+//   const NameContainer({@required this.text, this.opacity = kDefaultBoxOpacity});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Hero(
+//       tag: kNameHeroTag,
+//       child: BackgroundBox(
+//         opacity: this.opacity,
+//         child: Row(
+//           mainAxisSize: MainAxisSize.max,
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: <Widget>[
+//             Expanded(
+//               flex: 3,
+//               child: Container(
+//                 child: Padding(
+//                   padding: EdgeInsets.symmetric(horizontal: 10),
+//                   child: FittedBox(
+//                     child: Text(
+//                       this.text,
+//                       style: kNavTextStyle,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Container(
+//               alignment: Alignment.centerRight,
+//               child: ClipRRect(
+//                 borderRadius: BorderRadius.only(
+//                     topRight: Radius.circular(8.0),
+//                     bottomRight: Radius.circular(8.0)),
+//                 child: Image.asset("images/welcome_screen/hayden.png"),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
