@@ -80,10 +80,7 @@ class RadialAnimation extends StatelessWidget {
         ),
         super(key: key);
 
-  build(context) {
-    double buttonWidth = MediaQuery.of(context).size.height / 8;
-    double buttonHeight = MediaQuery.of(context).size.height / 10;
-
+  Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, builder) {
@@ -113,62 +110,13 @@ class RadialAnimation extends StatelessWidget {
                     routeName: ContactMe.kID),
                 Transform.scale(
                   scale: scale.value - kScaleMax,
-                  child: Container(
-                    height: buttonHeight,
-                    width: buttonWidth,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        heroTag: 'close_button',
-                        onPressed: _close,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        hoverColor: Colors.black.withOpacity(0.2),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ResponsiveImage(
-                            srcSet: {
-                              18: 'images/cancel-icon-18dp.png',
-                              24: 'images/cancel-icon-24dp.png',
-                              36: 'images/cancel-icon-36dp.png',
-                              48: 'images/cancel-icon-48dp.png',
-                            },
-                            builder: (context, src) {
-                              return Image.asset(src);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: _buildFab(context, "cancel", 'close_button',
+                      Theme.of(context).colorScheme.secondary, _close),
                 ),
                 Transform.scale(
                   scale: scale.value,
-                  child: Container(
-                    height: buttonHeight,
-                    width: buttonWidth,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        heroTag: 'open_button',
-                        onPressed: _open,
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        hoverColor: Colors.black.withOpacity(0.2),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ResponsiveImage(
-                            srcSet: {
-                              18: 'images/apps-icon-18dp.png',
-                              24: 'images/apps-icon-24dp.png',
-                              36: 'images/apps-icon-36dp.png',
-                              48: 'images/apps-icon-48dp.png',
-                            },
-                            builder: (context, src) {
-                              return Image.asset(src);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: _buildFab(context, "apps", 'open_button',
+                      Theme.of(context).colorScheme.primary, _open),
                 ),
               ],
             ),
@@ -178,8 +126,40 @@ class RadialAnimation extends StatelessWidget {
     );
   }
 
-  // angle (radians)
-  _buildButton(context, double angle,
+  Container _buildFab(BuildContext context, String iconName, String heroTag,
+      Color backgroundColour, Function onPressed) {
+    double buttonWidth = MediaQuery.of(context).size.height / 8;
+    double buttonHeight = MediaQuery.of(context).size.height / 10;
+
+    return Container(
+      height: buttonHeight,
+      width: buttonWidth,
+      child: FittedBox(
+        child: FloatingActionButton(
+          heroTag: heroTag,
+          onPressed: onPressed,
+          backgroundColor: backgroundColour,
+          hoverColor: Colors.black.withOpacity(0.2),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ResponsiveImage(
+              srcSet: {
+                18: 'images/$iconName-icon-18dp.png',
+                24: 'images/$iconName-icon-24dp.png',
+                36: 'images/$iconName-icon-36dp.png',
+                48: 'images/$iconName-icon-48dp.png',
+              },
+              builder: (context, src) {
+                return Image.asset(src);
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Transform _buildButton(BuildContext context, double angle,
       {Color color, String text, String routeName}) {
     Animation<double> translation = Tween<double>(
       begin: 0.0,
@@ -224,11 +204,11 @@ class RadialAnimation extends StatelessWidget {
     );
   }
 
-  _open() {
+  void _open() {
     controller.forward();
   }
 
-  _close() {
+  void _close() {
     controller.reverse();
   }
 }
