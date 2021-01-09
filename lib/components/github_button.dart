@@ -11,9 +11,9 @@ class GithubButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveImage(
       srcSet: {
-        32: 'images/Github-Mark-32px.png',
-        64: 'images/Github-Mark-64px.png',
-        120: 'images/Github-Mark-120px-plus.png',
+        32: 'images/GitHub-Mark-32px.png',
+        64: 'images/GitHub-Mark-64px.png',
+        120: 'images/GitHub-Mark-120px-plus.png',
       },
       builder: (context, src) {
         return RawMaterialButton(
