@@ -14,14 +14,18 @@ class _SidebarState extends State<Sidebar> {
   Widget build(BuildContext context) {
     final double radialDistance =
         (MediaQuery.of(context).size.width * kRadialMenuDistance);
-    final double buttonHeight = MediaQuery.of(context).size.height / 7;
-    final double buttonWidth = MediaQuery.of(context).size.width / 9;
+    final double buttonWidth = MediaQuery.of(context).size.width / 12;
+    final double buttonHeight = buttonWidth;
+    final double outerDistance = (MediaQuery.of(context).size.height / 2) -
+        ((MediaQuery.of(context).size.width * RadialAnimation.fabSizeModifier) *
+            2.5);
+    final double linkButtonLeftDistance = 4.0;
 
     return Stack(
       children: [
         Positioned(
-          left: 0,
-          top: MediaQuery.of(context).size.height / 4,
+          left: linkButtonLeftDistance,
+          top: outerDistance,
           height: buttonHeight,
           width: buttonWidth,
           child: Hero(
@@ -39,8 +43,8 @@ class _SidebarState extends State<Sidebar> {
           ),
         ),
         Positioned(
-          left: 0,
-          bottom: MediaQuery.of(context).size.height / 4,
+          left: linkButtonLeftDistance,
+          bottom: outerDistance,
           height: buttonHeight,
           width: buttonWidth,
           child: Hero(

@@ -45,6 +45,7 @@ class RadialAnimation extends StatelessWidget {
 
   static const double kScaleMax = 1.5;
   static const double kMenuExpansion = 150;
+  static const double fabSizeModifier = 1 / 18;
 
   RadialAnimation({Key key, this.controller})
       : scale = Tween<double>(
@@ -128,12 +129,11 @@ class RadialAnimation extends StatelessWidget {
 
   Container _buildFab(BuildContext context, String iconName, String heroTag,
       Color backgroundColour, Function onPressed) {
-    double buttonWidth = MediaQuery.of(context).size.height / 8;
-    double buttonHeight = MediaQuery.of(context).size.height / 10;
+    double buttonSize = MediaQuery.of(context).size.width * fabSizeModifier;
 
     return Container(
-      height: buttonHeight,
-      width: buttonWidth,
+      height: buttonSize,
+      width: buttonSize,
       child: FittedBox(
         child: FloatingActionButton(
           heroTag: heroTag,
