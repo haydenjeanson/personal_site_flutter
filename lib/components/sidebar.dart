@@ -52,13 +52,11 @@ class _SidebarState extends State<Sidebar> {
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  shape: BoxShape.circle),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: LinkedinButton(
-                    url: 'https://www.linkedin.com/in/hayden-jeanson/'),
+                color: Theme.of(context).colorScheme.secondary,
+                shape: BoxShape.circle,
               ),
+              child: LinkedinButton(
+                  url: 'https://www.linkedin.com/in/hayden-jeanson/'),
             ),
           ),
         ),
