@@ -177,8 +177,6 @@ class RadialAnimation extends StatelessWidget {
     double buttonWidth = MediaQuery.of(context).size.width / 8;
     double buttonHeight = MediaQuery.of(context).size.height * 2 / 30;
 
-    double offsetAmount =
-        buttonWidth / 2; //MediaQuery.of(context).size.width / 15;
     return Transform(
       transform: Matrix4.identity()
         ..translate(buttonWidth / 2, buttonHeight / 2)
