@@ -132,6 +132,9 @@ class RadialAnimation extends StatelessWidget {
                               36: 'images/cancel-icon-36dp.png',
                               48: 'images/cancel-icon-48dp.png',
                             },
+                            builder: (context, src) {
+                              return Image.asset(src);
+                            },
                           ),
                         ),
                       ),
@@ -157,6 +160,9 @@ class RadialAnimation extends StatelessWidget {
                               24: 'images/apps-icon-24dp.png',
                               36: 'images/apps-icon-36dp.png',
                               48: 'images/apps-icon-48dp.png',
+                            },
+                            builder: (context, src) {
+                              return Image.asset(src);
                             },
                           ),
                         ),
