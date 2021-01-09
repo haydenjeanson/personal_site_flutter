@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/github_button.dart';
 import 'package:personal_site_flutter/constants.dart';
-import 'package:personal_site_flutter/screens/welcome_screen.dart';
-import 'package:responsive_image/responsive_image.dart';
 
 class FavActivity1 extends StatelessWidget {
   @override
@@ -26,9 +24,7 @@ class FavActivity1 extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(
-                top: kLineSpacing,
-                bottom: kLineSpacing,
-                left: kIndentDistance * 2),
+                top: kLineSpacing, left: kIndentDistance * 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

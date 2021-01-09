@@ -104,7 +104,7 @@ class _ActivityDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      height: 0,
+      height: kIndentDistance,
       indent: MediaQuery.of(context).size.width / 3,
       endIndent: MediaQuery.of(context).size.width / 3,
     );
