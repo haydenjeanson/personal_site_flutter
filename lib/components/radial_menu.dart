@@ -6,6 +6,7 @@ import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';
 import 'package:responsive_image/responsive_image.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class RadialMenu extends StatefulWidget {
   @override
@@ -163,7 +164,9 @@ class RadialAnimation extends StatelessWidget {
       {Color color, String text, String routeName}) {
     Animation<double> translation = Tween<double>(
       begin: 0.0,
-      end: MediaQuery.of(context).size.width / 9,
+      end: (sqrt(pow(MediaQuery.of(context).size.height, 2) +
+              pow(MediaQuery.of(context).size.width, 2))) /
+          9,
     ).animate(
       CurvedAnimation(
         parent: controller,
@@ -171,16 +174,20 @@ class RadialAnimation extends StatelessWidget {
       ),
     );
 
-    double offsetAmount = MediaQuery.of(context).size.width / 15;
+    double buttonWidth = MediaQuery.of(context).size.width / 8;
+    double buttonHeight = MediaQuery.of(context).size.height * 2 / 30;
 
+    double offsetAmount =
+        buttonWidth / 2; //MediaQuery.of(context).size.width / 15;
     return Transform(
       transform: Matrix4.identity()
-        ..translate(offsetAmount)
+        ..translate(buttonWidth / 2, buttonHeight / 2)
         ..translate(
           (translation.value) * cos(angle),
           (translation.value) * sin(angle),
         )
-        ..scale(-(scale.value - kScaleMax)),
+        ..scale(-(scale.value - kScaleMax))
+        ..translate(0, -(buttonHeight / 2)),
       child: Hero(
         tag: routeName,
         child: ElevatedButton(
@@ -188,11 +195,19 @@ class RadialAnimation extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
             minimumSize: Size(
-              MediaQuery.of(context).size.width / 8,
-              MediaQuery.of(context).size.height * 2 / 30,
+              buttonWidth,
+              buttonHeight,
             ),
           ),
-          child: Text(text, style: kNavTextStyle.copyWith(fontSize: 30)),
+          child: SizedBox(
+            width: buttonWidth,
+            height: buttonHeight,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.5),
+              child: FittedBox(child: AutoSizeText(text, style: kNavTextStyle)),
+            ),
+          ),
           onPressed: () {
             _close();
             if (ModalRoute.of(context).settings.name != routeName) {
