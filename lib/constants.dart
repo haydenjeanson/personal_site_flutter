@@ -43,6 +43,8 @@ const ColorScheme kMainColourScheme = const ColorScheme(
   onSurface: _kOnSurfaceColour,
 );
 
+const Color kLinkColour = const Color(0xFF031C31);
+
 const double kDefaultBoxOpacity = 0.5;
 
 const double kHeaderHeightMultiplier = 1 / 6;
