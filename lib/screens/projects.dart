@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
-import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
-import 'package:personal_site_flutter/constants.dart';
+import 'package:personal_site_flutter/screens/shopify_image_repo.dart';
 
 class Projects extends StatefulWidget {
   static const String kID = 'projects';
@@ -16,7 +15,14 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        AnimatedBox(),
+        AnimatedBox(
+          child: ElevatedButton(
+            onPressed: () => Navigator.pushNamed(context, ShopifyImageRepo.kID),
+            child: Container(
+              child: Text("Shopify Image Repository"),
+            ),
+          ),
+        ),
         Sidebar(),
       ]),
     );

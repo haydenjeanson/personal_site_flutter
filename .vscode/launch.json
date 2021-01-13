@@ -7,7 +7,8 @@
         {
             "name": "personal_site_flutter",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["--web-port", "52615"]
         }
     ]
 }
