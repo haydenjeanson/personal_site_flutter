@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
-import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
-import 'package:personal_site_flutter/constants.dart';
-
-import '../constants.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String kID = 'welcome_screen';

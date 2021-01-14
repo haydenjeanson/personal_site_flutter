@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
-import 'package:personal_site_flutter/constants.dart';
 
 class ContactMe extends StatefulWidget {
   static const String kID = 'contact_me';

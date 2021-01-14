@@ -14,7 +14,7 @@ const TextStyle kParagraphTextStyle =
 
 const String kNameHeroTag = 'name';
 
-const Color _kBackgroundColour = const Color(0xFFE64A19);
+const Color kBackgroundColour = const Color(0xFFE64A19);
 const Color _kErrorColour = const Color(0xFFFF0000);
 const Color _kOnErrorColour = const Color(0xFF000000);
 const Color _kOnBackgroundColour = const Color(0xFFFFBF00);
@@ -28,7 +28,7 @@ const Color _kSurfaceColour = const Color(0xFFBDBDBD);
 const Color _kOnSurfaceColour = const Color(0xFF000000);
 
 const ColorScheme kMainColourScheme = const ColorScheme(
-  background: _kBackgroundColour,
+  background: kBackgroundColour,
   brightness: Brightness.light,
   error: _kErrorColour,
   onError: _kOnErrorColour,

@@ -3,15 +3,14 @@ import 'package:personal_site_flutter/components/background_box.dart';
 import 'package:personal_site_flutter/constants.dart';
 
 class AnimatedBox extends StatefulWidget {
-  Color colour;
+  final Color colour;
   final double opacity;
   final Widget child;
 
-  AnimatedBox({this.colour, this.opacity = kDefaultBoxOpacity, this.child}) {
-    if (colour == null) {
-      colour = kMainColourScheme.background;
-    }
-  }
+  AnimatedBox(
+      {this.colour = kBackgroundColour,
+      this.opacity = kDefaultBoxOpacity,
+      this.child});
 
   @override
   _AnimatedBoxState createState() => _AnimatedBoxState(
