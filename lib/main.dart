@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
-import 'package:personal_site_flutter/screens/shopify_image_repo.dart';
+import 'package:personal_site_flutter/shopify_image_repo/components/signed_in_image_repo.dart';
+import 'package:personal_site_flutter/shopify_image_repo/screens/shopify_image_repo.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';
 import 'package:personal_site_flutter/screens/about_me.dart';
 

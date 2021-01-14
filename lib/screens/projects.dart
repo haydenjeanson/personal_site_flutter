@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
-import 'package:personal_site_flutter/screens/shopify_image_repo.dart';
+import 'package:personal_site_flutter/shopify_image_repo/screens/shopify_image_repo.dart';
 
 class Projects extends StatefulWidget {
   static const String kID = 'projects';
