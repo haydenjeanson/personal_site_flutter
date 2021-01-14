@@ -12,6 +12,15 @@ const TextStyle kNavTextStyle = TextStyle(
 const TextStyle kParagraphTextStyle =
     TextStyle(color: _kOnSurfaceColour, fontSize: 25);
 
+// Can not be a constant because of the border
+ButtonThemeData buttonData = ButtonThemeData(
+  buttonColor: _kSecondaryColour,
+  padding: EdgeInsets.all(16.0),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(8.0),
+  ),
+);
+
 const String kNameHeroTag = 'name';
 
 const Color kBackgroundColour = const Color(0xFFE64A19);
