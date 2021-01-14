@@ -12,15 +12,6 @@ const TextStyle kNavTextStyle = TextStyle(
 const TextStyle kParagraphTextStyle =
     TextStyle(color: _kOnSurfaceColour, fontSize: 25);
 
-// Can not be a constant because of the border
-ButtonThemeData buttonData = ButtonThemeData(
-  buttonColor: _kSecondaryColour,
-  padding: EdgeInsets.all(16.0),
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(8.0),
-  ),
-);
-
 const String kNameHeroTag = 'name';
 
 const Color kBackgroundColour = const Color(0xFFE64A19);
@@ -31,7 +22,7 @@ const Color _kOnPrimaryColour = const Color(0xFF1A1A1A);
 const Color _kOnSecondaryColour = const Color(0xFF757575);
 const Color _kPrimaryColour = const Color(0xFFFF5722);
 const Color _kPrimaryVariantColour = const Color(0xFF772106);
-const Color _kSecondaryColour = const Color(0xFFFFCCBC);
+const Color kSecondaryColour = const Color(0xFFFFCCBC);
 const Color _kSecondaryVariantColour = const Color(0xFFCC7C64);
 const Color _kSurfaceColour = const Color(0xFFBDBDBD);
 const Color _kOnSurfaceColour = const Color(0xFF000000);
@@ -46,7 +37,7 @@ const ColorScheme kMainColourScheme = const ColorScheme(
   onSecondary: _kOnSecondaryColour,
   primary: _kPrimaryColour,
   primaryVariant: _kPrimaryVariantColour,
-  secondary: _kSecondaryColour,
+  secondary: kSecondaryColour,
   secondaryVariant: _kSecondaryVariantColour,
   surface: _kSurfaceColour,
   onSurface: _kOnSurfaceColour,
