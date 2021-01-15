@@ -43,7 +43,6 @@ class _AboutMeState extends State<AboutMe> {
             top: 0,
             child: NameContainer(
               text: 'Hayden Jeanson',
-              opacity: this.opacity,
             ),
           ),
           Positioned(

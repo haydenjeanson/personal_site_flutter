@@ -6,7 +6,7 @@ class NameContainer extends StatefulWidget {
   final String text;
   final double opacity;
 
-  const NameContainer({@required this.text, this.opacity = kDefaultBoxOpacity});
+  const NameContainer({@required this.text, this.opacity = 0.75});
 
   @override
   _NameContainerState createState() =>
