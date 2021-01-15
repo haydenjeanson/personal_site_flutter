@@ -5,9 +5,9 @@ import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
 import 'package:personal_site_flutter/shopify_image_repo/components/sign_in.dart';
 import 'package:personal_site_flutter/constants.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+// import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:personal_site_flutter/shopify_image_repo/components/signed_in_image_repo.dart';
+import 'package:personal_site_flutter/shopify_image_repo/screens/signed_in_image_repo.dart';
 
 class ShopifyImageRepo extends StatefulWidget {
   static const kID = 'shopify_image_repo_home';
@@ -30,7 +30,7 @@ class _ShopifyImageRepoState extends State<ShopifyImageRepo> {
         Container(
           alignment: Alignment.center,
           child: SignIn(
-            authenticatedWidget: SignedInImageRepo(),
+            routeOnAuth: SignedInImageRepo.kID,
           ),
         ),
         Sidebar(),
