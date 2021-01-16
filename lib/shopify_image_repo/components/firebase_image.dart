@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'package:personal_site_flutter/constants.dart';
+import 'package:personal_site_flutter/util.dart';
 
 class FirebaseImage extends StatefulWidget {
   final Reference image;
@@ -15,14 +18,14 @@ class FirebaseImage extends StatefulWidget {
 }
 
 class _FirebaseImageState extends State<FirebaseImage> {
-  FirebaseStorage storage = FirebaseStorage.instance;
   final Reference image;
+  _FirebaseImageState(this.image);
+
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   // 100 is an abitrary number > 0 so that something still appears if it errors
   double naturalWidth = 100;
   double naturalHeight = 100;
-
-  _FirebaseImageState(this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +52,11 @@ class _FirebaseImageState extends State<FirebaseImage> {
                             ),
                           ),
                     ElevatedButton(
-                      style: _invisibleButton(),
+                      style: invisibleButton().copyWith(
+                        overlayColor: MaterialStateProperty.resolveWith((_) =>
+                            Colors.black.withOpacity(kDefaultBoxOpacity)),
+                      ),
                       onPressed: () {
-                        print(this.naturalHeight);
                         Overlay.of(context)
                             .insert(_imageOverlay(snapshot.data));
                       },
@@ -62,7 +67,6 @@ class _FirebaseImageState extends State<FirebaseImage> {
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
-                  constraints: BoxConstraints.expand(),
                   child: CircularProgressIndicator(),
                 );
               }
@@ -79,8 +83,8 @@ class _FirebaseImageState extends State<FirebaseImage> {
     await ref.getDownloadURL().then((url) {
       // This is not a real error -> It works when built but incorrectly
       // displaying this error is a known issue of dart:ui
-      ui.platformViewRegistry.registerViewFactory(image.toString(),
-          (int viewId) {
+      // ignore: undefined_prefixed_name
+      ui.platformViewRegistry.registerViewFactory(image.toString(), (_) {
         ImageElement img = ImageElement()..src = url;
 
         this.naturalWidth = (img.naturalWidth) as double;
@@ -93,14 +97,6 @@ class _FirebaseImageState extends State<FirebaseImage> {
     return HtmlElementView(
       viewType: image.toString(),
     );
-  }
-
-  ButtonStyle _invisibleButton() {
-    return ButtonStyle(
-        padding: MaterialStateProperty.resolveWith((states) => EdgeInsets.zero),
-        elevation: MaterialStateProperty.resolveWith((states) => 0.0),
-        backgroundColor: MaterialStateProperty.resolveWith(
-            (states) => Colors.red.withOpacity(0)));
   }
 
   OverlayEntry _imageOverlay(HtmlElementView image) {
@@ -142,9 +138,11 @@ class _FirebaseImageState extends State<FirebaseImage> {
                   ),
           ),
           ElevatedButton(
-            style: _invisibleButton(),
+            style: invisibleButton(),
             child: Container(),
-            onPressed: () => overlay.remove(),
+            onPressed: () {
+              overlay.remove();
+            },
           ),
         ],
       );
