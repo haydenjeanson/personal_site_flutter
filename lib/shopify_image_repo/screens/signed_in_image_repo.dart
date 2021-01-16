@@ -1,14 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
-import 'package:personal_site_flutter/components/body_widget.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
 import 'package:personal_site_flutter/constants.dart';
-// import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:personal_site_flutter/shopify_image_repo/components/sign_in.dart';
+import 'package:personal_site_flutter/shopify_image_repo/components/firebase_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:personal_site_flutter/shopify_image_repo/screens/shopify_image_repo.dart';
 
@@ -22,6 +18,27 @@ class SignedInImageRepo extends StatefulWidget {
 class _SignedInImageRepoState extends State<SignedInImageRepo> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+
+  // Visibility popup() {
+  //   return Visibility(
+  //     visible: popupIsVisible,
+  //     child: Container(
+  //       constraints: BoxConstraints.expand(),
+  //       child: ElevatedButton(
+  //         style: ButtonStyle(
+  //             backgroundColor: MaterialStateProperty.resolveWith(
+  //                 (states) => Colors.black.withOpacity(kDefaultBoxOpacity))),
+  //         onPressed: () {
+  //           print('popup pressed');
+  //           setState(() {
+  //             popupIsVisible = false;
+  //           });
+  //         },
+  //         child: Container(),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,39 +76,35 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Padding(
-                            padding: EdgeInsets.zero,
-                            child: ElevatedButton(
-                              style: ButtonStyle(),
-                              onPressed: () {
-                                auth.signOut();
-                                Navigator.pushNamed(
-                                    context, ShopifyImageRepo.kID);
-                              },
-                              child: Text(
-                                'Sign Out',
-                                style: kNavTextStyle,
-                              ),
-                            ),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.resolveWith(
+                                  (states) => RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(25)))),
+                          onPressed: () {
+                            auth.signOut();
+                            Navigator.pushNamed(context, ShopifyImageRepo.kID);
+                          },
+                          child: Text(
+                            'Sign Out',
+                            style: kNavTextStyle,
                           ),
                         ),
-                        Expanded(
-                          child: GridView.count(
-                            crossAxisCount: 3,
-                            children: [
-                              Container(
-                                  color: Colors.blue, child: Text("Hello")),
-                              Container(
-                                  color: Colors.blue, child: Text("World!")),
-                            ],
-                          ),
+                      ),
+                      Expanded(
+                        child: GridView.count(
+                          crossAxisCount: 4,
+                          children: [
+                            FirebaseImage(storage.ref('images/hayden.png')),
+                            FirebaseImage(storage.ref('images/1.png')),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -99,6 +112,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
           ),
         ),
         Sidebar(),
+        // popup(),
       ]),
     );
   }
