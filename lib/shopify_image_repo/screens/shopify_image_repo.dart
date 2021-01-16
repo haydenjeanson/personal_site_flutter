@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
 import 'package:personal_site_flutter/shopify_image_repo/components/sign_in.dart';
-import 'package:personal_site_flutter/constants.dart';
-// import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:personal_site_flutter/shopify_image_repo/screens/signed_in_image_repo.dart';
 
 class ShopifyImageRepo extends StatefulWidget {

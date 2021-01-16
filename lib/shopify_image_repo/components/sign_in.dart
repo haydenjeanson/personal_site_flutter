@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:personal_site_flutter/shopify_image_repo/screens/signed_in_image_repo.dart';
 
 class SignIn extends StatefulWidget {
   final String routeOnAuth;
