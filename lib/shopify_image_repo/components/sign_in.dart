@@ -14,6 +14,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final String routeOnAuth;
   FirebaseAuth auth = FirebaseAuth.instance;
+  bool authFlag = false;
 
   _SignInState({@required this.routeOnAuth});
 
@@ -22,6 +23,7 @@ class _SignInState extends State<SignIn> {
   }
 
   void checkAuth() {
+    this.authFlag = true;
     auth.authStateChanges().listen((User user) {
       if (user != null) {
         Navigator.pushNamed(context, this.routeOnAuth);
@@ -45,8 +47,9 @@ class _SignInState extends State<SignIn> {
             Size(MediaQuery.of(context).size.width / 2, 580)),
         child: ElevatedButton(
           onPressed: () {
-            checkAuth();
-            print('Signing in anonymously...');
+            if (!authFlag) {
+              checkAuth();
+            }
             anonymousSignIn();
           },
           child: Padding(
