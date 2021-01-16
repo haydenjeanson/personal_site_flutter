@@ -19,27 +19,6 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
 
-  // Visibility popup() {
-  //   return Visibility(
-  //     visible: popupIsVisible,
-  //     child: Container(
-  //       constraints: BoxConstraints.expand(),
-  //       child: ElevatedButton(
-  //         style: ButtonStyle(
-  //             backgroundColor: MaterialStateProperty.resolveWith(
-  //                 (states) => Colors.black.withOpacity(kDefaultBoxOpacity))),
-  //         onPressed: () {
-  //           print('popup pressed');
-  //           setState(() {
-  //             popupIsVisible = false;
-  //           });
-  //         },
-  //         child: Container(),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +91,6 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
           ),
         ),
         Sidebar(),
-        // popup(),
       ]),
     );
   }
