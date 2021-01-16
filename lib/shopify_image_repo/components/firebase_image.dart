@@ -51,6 +51,7 @@ class _FirebaseImageState extends State<FirebaseImage> {
                     ElevatedButton(
                       style: _invisibleButton(),
                       onPressed: () {
+                        print(this.naturalHeight);
                         Overlay.of(context)
                             .insert(_imageOverlay(snapshot.data));
                       },
@@ -78,17 +79,19 @@ class _FirebaseImageState extends State<FirebaseImage> {
     await ref.getDownloadURL().then((url) {
       // This is not a real error -> It works when built but incorrectly
       // displaying this error is a known issue of dart:ui
-      ui.platformViewRegistry.registerViewFactory('cors-image', (int viewId) {
+      ui.platformViewRegistry.registerViewFactory(image.toString(),
+          (int viewId) {
         ImageElement img = ImageElement()..src = url;
+
         this.naturalWidth = (img.naturalWidth) as double;
         this.naturalHeight = (img.naturalHeight) as double;
-        print(this.naturalHeight);
+
         return img;
       });
     });
 
     return HtmlElementView(
-      viewType: 'cors-image',
+      viewType: image.toString(),
     );
   }
 
@@ -106,8 +109,8 @@ class _FirebaseImageState extends State<FirebaseImage> {
       // Scale image to size that fits the screen
       while ((this.naturalHeight > MediaQuery.of(context).size.height) ||
           (this.naturalWidth > MediaQuery.of(context).size.width)) {
-        this.naturalHeight /= 2;
-        this.naturalWidth /= 2;
+        this.naturalHeight /= 1.1;
+        this.naturalWidth /= 1.1;
       }
     } else {
       // Set size of Image not found container

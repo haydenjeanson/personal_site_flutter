@@ -22,76 +22,80 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        Background(
-          foregroundDecoration: BoxDecoration(
-            backgroundBlendMode: BlendMode.saturation,
-            color: Colors.grey,
+      body: Stack(
+        children: [
+          Background(
+            foregroundDecoration: BoxDecoration(
+              backgroundBlendMode: BlendMode.saturation,
+              color: Colors.grey,
+            ),
           ),
-        ),
-        Positioned(
-          height: MediaQuery.of(context).size.height * kHeaderHeightMultiplier,
-          width: MediaQuery.of(context).size.width * kHeaderWidthMultiplier,
-          left: ((MediaQuery.of(context).size.width) -
-                  (MediaQuery.of(context).size.width *
-                      kHeaderWidthMultiplier)) /
-              2,
-          top: 0,
-          child: NameContainer(
-            text: 'Hayden Jeanson',
+          Positioned(
+            height:
+                MediaQuery.of(context).size.height * kHeaderHeightMultiplier,
+            width: MediaQuery.of(context).size.width * kHeaderWidthMultiplier,
+            left: ((MediaQuery.of(context).size.width) -
+                    (MediaQuery.of(context).size.width *
+                        kHeaderWidthMultiplier)) /
+                2,
+            top: 0,
+            child: NameContainer(
+              text: 'Hayden Jeanson',
+            ),
           ),
-        ),
-        Positioned(
-          top: MediaQuery.of(context).size.height * kHeaderHeightMultiplier,
-          height: MediaQuery.of(context).size.height -
-              (MediaQuery.of(context).size.height * kHeaderHeightMultiplier),
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 8,
-                height: 20,
-              ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.resolveWith(
-                                  (states) => RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(25)))),
-                          onPressed: () {
-                            auth.signOut();
-                            Navigator.pushNamed(context, ShopifyImageRepo.kID);
-                          },
-                          child: Text(
-                            'Sign Out',
-                            style: kNavTextStyle,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 4,
-                          children: [
-                            FirebaseImage(storage.ref('images/hayden.png')),
-                            FirebaseImage(storage.ref('images/1.png')),
-                          ],
-                        ),
-                      ),
-                    ],
+          Positioned(
+            top: MediaQuery.of(context).size.height * kHeaderHeightMultiplier,
+            height: MediaQuery.of(context).size.height -
+                (MediaQuery.of(context).size.height * kHeaderHeightMultiplier),
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 8,
+                  height: 20,
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.count(
+                      crossAxisCount: 4,
+                      children: [
+                        FirebaseImage(storage.ref('images/hayden.png')),
+                        FirebaseImage(storage.ref('images/1.jpg')),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Sidebar(),
+          Positioned(
+            left: 8.0,
+            bottom: 8.0,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.resolveWith(
+                  (states) => EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                ),
+                shape: MaterialStateProperty.resolveWith(
+                  (states) => RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
                   ),
                 ),
               ),
-            ],
+              onPressed: () {
+                auth.signOut();
+                Navigator.popAndPushNamed(context, ShopifyImageRepo.kID);
+              },
+              child: Text(
+                'Sign Out',
+                style: kNavTextStyle.copyWith(fontSize: 25),
+              ),
+            ),
           ),
-        ),
-        Sidebar(),
-      ]),
+        ],
+      ),
     );
   }
 }
