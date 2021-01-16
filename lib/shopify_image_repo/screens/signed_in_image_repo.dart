@@ -57,12 +57,17 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: GridView.count(
-                      crossAxisCount: 4,
-                      children: [
-                        FirebaseImage(storage.ref('images/hayden.png')),
-                        FirebaseImage(storage.ref('images/1.jpg')),
-                      ],
+                    child: FutureBuilder(
+                      future: _allFirebaseImages(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return GridView.count(
+                            crossAxisCount: 4,
+                            children: snapshot.data,
+                          );
+                        }
+                        return CircularProgressIndicator();
+                      },
                     ),
                   ),
                 ),
@@ -86,7 +91,8 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
               ),
               onPressed: () {
                 auth.signOut();
-                Navigator.popAndPushNamed(context, ShopifyImageRepo.kID);
+
+                Navigator.pushReplacementNamed(context, ShopifyImageRepo.kID);
               },
               child: Text(
                 'Sign Out',
@@ -97,5 +103,16 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
         ],
       ),
     );
+  }
+
+  Future _allFirebaseImages() async {
+    ListResult imageRefs = await storage.ref('images/').listAll();
+    List<FirebaseImage> images = List<FirebaseImage>.empty(growable: true);
+
+    imageRefs.items.forEach((image) {
+      images.add(FirebaseImage(image));
+    });
+
+    return images;
   }
 }
