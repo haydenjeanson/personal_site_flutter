@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/screens/about_me.dart';
-import 'package:personal_site_flutter/screens/contact_me.dart';
+// import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';
 import 'package:responsive_image/responsive_image.dart';
