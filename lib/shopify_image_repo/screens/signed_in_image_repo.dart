@@ -9,6 +9,10 @@ import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/shopify_image_repo/components/firebase_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:personal_site_flutter/shopify_image_repo/screens/shopify_image_repo.dart';
+import 'package:personal_site_flutter/util.dart';
+import 'package:firebase/firebase.dart' as fb;
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html';
 
 class SignedInImageRepo extends StatefulWidget {
   static const String kID = "signed_in_image_repo";
@@ -89,7 +93,9 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
               auth: auth,
               text: 'Upload Image',
               leftWidth: leftWidth,
-              onPressed: () {},
+              onPressed: () async {
+                await _uploadImage();
+              },
             ),
           ),
           Positioned(
@@ -109,6 +115,42 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
         ],
       ),
     );
+  }
+
+  _uploadImage() async {
+    final FileUploadInputElement input = FileUploadInputElement();
+
+    input..accept = 'image/*';
+    input.click();
+
+    await input.onChange.first;
+    if (input.files.isNotEmpty) {
+      final imageName = DateTime.now().toString();
+
+      try {
+        fb.StorageReference storageRef =
+            fb.storage().ref('images/${Util.getCurrentUser(auth)}/$imageName');
+        fb.UploadTaskSnapshot uploadTaskSnapshot =
+            await storageRef.put(input.files.first).future;
+
+        Uri imageUrl = await uploadTaskSnapshot.ref.getDownloadURL();
+
+        print(input.files.first.type);
+        print(input.files.first.size);
+
+        // CollectionReference users =
+        //     FirebaseFirestore.instance.collection('users');
+
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(Util.getCurrentUser(auth))
+            .collection('images')
+            .doc(imageName)
+            .set({'width': 200, 'height': 200, 'url': imageUrl.toString()});
+      } catch (e) {
+        print('error:$e');
+      }
+    }
   }
 
   Future _allFirebaseImages() async {
