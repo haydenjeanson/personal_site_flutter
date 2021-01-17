@@ -32,19 +32,20 @@ class _FirebaseImageState extends State<FirebaseImage> {
   Map<String, double> heightMap = {};
   Map<String, double> widthMap = {};
 
-  String _getCurrentUser() {
-    User user = FirebaseAuth.instance.currentUser;
-    if (user.isAnonymous) {
-      return anonymousUser;
-    } else {
-      return user.uid;
-    }
-  }
-
   @override
   void initState() {
     this.imageName = this.image.fullPath.toString().split('/')[1];
 
+    firestore
+        .collection('users')
+        .doc(anonymousUser)
+        .collection('images')
+        .doc(this.imageName)
+        .get()
+        .then((value) {
+      this.heightMap[value.id] = value.data()['height'];
+      this.widthMap[value.id] = value.data()['width'];
+    });
     firestore
         .collection('users')
         .doc(_getCurrentUser())
@@ -52,8 +53,13 @@ class _FirebaseImageState extends State<FirebaseImage> {
         .doc(this.imageName)
         .get()
         .then((value) {
-      this.heightMap[value.id] = value.data()['height'];
-      this.widthMap[value.id] = value.data()['width'];
+      try {
+        this.heightMap[value.id] = value.data()['height'];
+        this.widthMap[value.id] = value.data()['width'];
+      } catch (_) {
+        print(
+            'Error (_FirebaseImageState): Value not found for user: ${_getCurrentUser()}');
+      }
     });
 
     super.initState();
@@ -109,6 +115,15 @@ class _FirebaseImageState extends State<FirebaseImage> {
             }),
       ],
     );
+  }
+
+  String _getCurrentUser() {
+    User user = FirebaseAuth.instance.currentUser;
+    if (user.isAnonymous) {
+      return anonymousUser;
+    } else {
+      return user.uid;
+    }
   }
 
   Future _loadImage(Reference ref) async {

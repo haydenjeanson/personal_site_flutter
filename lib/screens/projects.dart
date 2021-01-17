@@ -17,7 +17,8 @@ class _ProjectsState extends State<Projects> {
       body: Stack(children: [
         AnimatedBox(
           child: ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, ShopifyImageRepo.kID),
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, ShopifyImageRepo.kID),
             child: Container(
               child: Text("Shopify Image Repository"),
             ),
