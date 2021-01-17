@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
@@ -16,11 +18,14 @@ class SignedInImageRepo extends StatefulWidget {
 }
 
 class _SignedInImageRepoState extends State<SignedInImageRepo> {
+  static const int _minImageWidth = 300;
+
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
   Widget build(BuildContext context) {
+    double leftWidth = MediaQuery.of(context).size.width / 8;
     return Scaffold(
       body: Stack(
         children: [
@@ -51,7 +56,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
             child: Row(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width / 8,
+                  width: leftWidth,
                   height: 20,
                 ),
                 Flexible(
@@ -62,7 +67,9 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return GridView.count(
-                            crossAxisCount: 4,
+                            crossAxisCount:
+                                (MediaQuery.of(context).size.width ~/
+                                    _minImageWidth),
                             children: snapshot.data,
                           );
                         }
@@ -77,27 +84,26 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
           Sidebar(),
           Positioned(
             left: 8.0,
+            bottom: 40.0,
+            child: _TextButton(
+              auth: auth,
+              text: 'Upload Image',
+              leftWidth: leftWidth,
+              onPressed: () {},
+            ),
+          ),
+          Positioned(
+            left: 8.0,
             bottom: 8.0,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.resolveWith(
-                  (states) => EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                ),
-                shape: MaterialStateProperty.resolveWith(
-                  (states) => RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-              ),
+            child: _TextButton(
+              auth: auth,
+              text: 'Sign Out',
+              leftWidth: leftWidth,
               onPressed: () {
-                auth.signOut();
+                this.auth.signOut();
 
                 Navigator.pushReplacementNamed(context, ShopifyImageRepo.kID);
               },
-              child: Text(
-                'Sign Out',
-                style: kNavTextStyle.copyWith(fontSize: 25),
-              ),
             ),
           ),
         ],
@@ -106,13 +112,82 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
   }
 
   Future _allFirebaseImages() async {
-    ListResult imageRefs = await storage.ref('images/').listAll();
-    List<FirebaseImage> images = List<FirebaseImage>.empty(growable: true);
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    List<Column> images = List<Column>.empty(growable: true);
+    Map<String, String> imageMap = {};
+    List<String> imageNames = List<String>.empty(growable: true);
 
-    imageRefs.items.forEach((image) {
-      images.add(FirebaseImage(image));
+    await users.get().then((usersFolder) async {
+      for (QueryDocumentSnapshot user in usersFolder.docs) {
+        await users.doc(user.id).collection('images').get().then((imageFolder) {
+          imageFolder.docs.forEach((image) {
+            imageMap[image.id] = user.id;
+            imageNames.add(image.id);
+          });
+        });
+      }
+    });
+
+    imageNames.forEach((imageName) {
+      images.add(Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Flexible(
+            child: FirebaseImage(
+                this.storage.ref('images/${imageMap[imageName]}/$imageName')),
+          ),
+          AnimatedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Uploaded by: ${imageMap[imageName]}',
+                style: kParagraphTextStyle.copyWith(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ));
     });
 
     return images;
+  }
+}
+
+class _TextButton extends StatelessWidget {
+  const _TextButton({
+    Key key,
+    @required this.auth,
+    @required this.text,
+    @required this.leftWidth,
+    @required this.onPressed,
+  }) : super(key: key);
+
+  final FirebaseAuth auth;
+  final String text;
+  final double leftWidth;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.resolveWith(
+            (states) => Size(this.leftWidth, 1)),
+        padding: MaterialStateProperty.resolveWith(
+          (states) => EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        ),
+        shape: MaterialStateProperty.resolveWith(
+          (states) => RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+        ),
+      ),
+      onPressed: this.onPressed,
+      child: Text(
+        this.text,
+        style: kNavTextStyle.copyWith(fontSize: 23),
+      ),
+    );
   }
 }

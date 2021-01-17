@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/constants.dart';
@@ -29,6 +30,14 @@ class _SignInState extends State<SignIn> {
 
     return await this.auth.signInWithPopup(googleProvider);
   }
+
+  // Future<void> _addUser(String uid) {
+  //   return FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(uid)
+  //       .collection('images')
+  //       .add();
+  // }
 
   @override
   void initState() {
@@ -66,8 +75,28 @@ class _SignInState extends State<SignIn> {
                       if (auth.currentUser != null)
                         Navigator.pushNamed(context, this.routeOnAuth);
                       UserCredential user = await googleSignIn();
-                      if (user != null)
+                      if (user != null) {
+                        // bool exists = false;
+                        // FirebaseFirestore.instance
+                        //     .collection('users')
+                        //     .get()
+                        //     .then(
+                        //   (value) {
+                        //     value.docs
+                        //         .takeWhile((value) => user.user.uid != value.id)
+                        //         .forEach((doc) {
+                        //       if (user.user.uid == doc.id) {
+                        //         exists = true;
+                        //       }
+                        //     });
+                        //   },
+                        // );
+
+                        // if (!exists) {
+                        //   _addUser(user.user.uid);
+                        // }
                         Navigator.pushNamed(context, this.routeOnAuth);
+                      }
                     },
                     child: Container(),
                     style: invisibleButton().copyWith(

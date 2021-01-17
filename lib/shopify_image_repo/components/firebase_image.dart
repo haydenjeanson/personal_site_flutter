@@ -34,7 +34,7 @@ class _FirebaseImageState extends State<FirebaseImage> {
 
   @override
   void initState() {
-    this.imageName = this.image.fullPath.toString().split('/')[1];
+    this.imageName = this.image.fullPath.toString().split('/')[2];
 
     firestore
         .collection('users')
@@ -58,7 +58,7 @@ class _FirebaseImageState extends State<FirebaseImage> {
         this.widthMap[value.id] = value.data()['width'];
       } catch (_) {
         print(
-            'Error (_FirebaseImageState): Value not found for user: ${_getCurrentUser()}');
+            'Error (_FirebaseImageState): Value not found for user: ${_getCurrentUser()}. Tried to look at image: ${this.imageName}');
       }
     });
 
