@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,6 +16,7 @@ import 'package:personal_site_flutter/util.dart';
 import 'package:firebase/firebase.dart' as fb;
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
+import 'dart:ui' as ui;
 
 class SignedInImageRepo extends StatefulWidget {
   static const String kID = "signed_in_image_repo";
@@ -26,6 +30,8 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+
+  List<Column> images = List<Column>.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +80,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                             crossAxisCount:
                                 (MediaQuery.of(context).size.width ~/
                                     _minImageWidth),
-                            children: snapshot.data,
+                            children: this.images,
                           );
                         }
                         return CircularProgressIndicator();
@@ -125,28 +131,51 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
 
     await input.onChange.first;
     if (input.files.isNotEmpty) {
-      final imageName = DateTime.now().toString();
-
       try {
+        List<String> imageType = input.files.first.type.toString().split('/');
+        if (imageType[0] != 'image') {
+          return false;
+        }
+
+        // Use DateTime to make risk of duplicate file names negligible
+        final String imageName =
+            '${DateTime.now().toString().split('.')[0]}.${imageType[1]}';
+
+        // Need to load the image to get the width and height for firestore
+        final reader = FileReader();
+        reader.readAsDataUrl(input.files[0]);
+        await reader.onLoad.first;
+        final imageBytes = (reader.result as String)
+            .replaceFirst(RegExp(r'data:image/[^;]+;base64,'), '');
+        ui.Image image = await decodeImageFromList(base64.decode(imageBytes));
+
+        // Upload image to Firebase Storage
         fb.StorageReference storageRef =
             fb.storage().ref('images/${Util.getCurrentUser(auth)}/$imageName');
         fb.UploadTaskSnapshot uploadTaskSnapshot =
             await storageRef.put(input.files.first).future;
 
-        Uri imageUrl = await uploadTaskSnapshot.ref.getDownloadURL();
+        // Upload image info to Firebase Firestore
+        String imageUrl =
+            (await uploadTaskSnapshot.ref.getDownloadURL()).toString();
 
-        print(input.files.first.type);
-        print(input.files.first.size);
-
-        // CollectionReference users =
-        //     FirebaseFirestore.instance.collection('users');
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(Util.getCurrentUser(auth))
+            .set({'exists': true});
 
         FirebaseFirestore.instance
             .collection('users')
             .doc(Util.getCurrentUser(auth))
             .collection('images')
             .doc(imageName)
-            .set({'width': 200, 'height': 200, 'url': imageUrl.toString()});
+            .set({
+          'width': image.width,
+          'height': image.height,
+          'url': imageUrl,
+        });
+
+        // _addGridColumn({imageName: Util.getCurrentUser(auth)}, )
       } catch (e) {
         print('error:$e');
       }
@@ -155,7 +184,6 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
 
   Future _allFirebaseImages() async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
-    List<Column> images = List<Column>.empty(growable: true);
     Map<String, String> imageMap = {};
     List<String> imageNames = List<String>.empty(growable: true);
 
@@ -171,28 +199,30 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
     });
 
     imageNames.forEach((imageName) {
-      images.add(Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Flexible(
-            child: FirebaseImage(
-                this.storage.ref('images/${imageMap[imageName]}/$imageName')),
-          ),
-          AnimatedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Uploaded by: ${imageMap[imageName]}',
-                style: kParagraphTextStyle.copyWith(fontSize: 18),
-                textAlign: TextAlign.center,
-              ),
+      this.images.add(_addGridColumn(imageMap, imageName));
+    });
+  }
+
+  Column _addGridColumn(Map<String, String> imageMap, String imageName) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Flexible(
+          child: FirebaseImage(
+              this.storage.ref('images/${imageMap[imageName]}/$imageName')),
+        ),
+        AnimatedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Uploaded by: ${imageMap[imageName]}',
+              style: kParagraphTextStyle.copyWith(fontSize: 18),
+              textAlign: TextAlign.center,
             ),
           ),
-        ],
-      ));
-    });
-
-    return images;
+        ),
+      ],
+    );
   }
 }
 
