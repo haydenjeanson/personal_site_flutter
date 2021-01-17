@@ -67,7 +67,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                   width: leftWidth,
                   height: 20,
                 ),
-                Expanded(
+                Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FutureBuilder(
