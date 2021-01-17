@@ -31,8 +31,6 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
 
-  List<Column> images = List<Column>.empty(growable: true);
-
   @override
   Widget build(BuildContext context) {
     double leftWidth = MediaQuery.of(context).size.width / 8;
@@ -69,7 +67,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                   width: leftWidth,
                   height: 20,
                 ),
-                Flexible(
+                Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FutureBuilder(
@@ -77,10 +75,11 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return GridView.count(
+                            mainAxisSpacing: 1.0,
                             crossAxisCount:
                                 (MediaQuery.of(context).size.width ~/
                                     _minImageWidth),
-                            children: this.images,
+                            children: snapshot.data,
                           );
                         }
                         return CircularProgressIndicator();
@@ -175,7 +174,8 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
           'url': imageUrl,
         });
 
-        // _addGridColumn({imageName: Util.getCurrentUser(auth)}, )
+        // Update gridview with new image
+        setState(() {});
       } catch (e) {
         print('error:$e');
       }
@@ -186,6 +186,8 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     Map<String, String> imageMap = {};
     List<String> imageNames = List<String>.empty(growable: true);
+
+    List<Column> images = List<Column>.empty(growable: true);
 
     await users.get().then((usersFolder) async {
       for (QueryDocumentSnapshot user in usersFolder.docs) {
@@ -199,8 +201,10 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
     });
 
     imageNames.forEach((imageName) {
-      this.images.add(_addGridColumn(imageMap, imageName));
+      images.add(_addGridColumn(imageMap, imageName));
     });
+
+    return images;
   }
 
   Column _addGridColumn(Map<String, String> imageMap, String imageName) {
