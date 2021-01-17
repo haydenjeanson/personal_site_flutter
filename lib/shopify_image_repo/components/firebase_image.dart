@@ -23,10 +23,9 @@ class _FirebaseImageState extends State<FirebaseImage> {
   final Reference image;
   _FirebaseImageState(this.image);
 
-  static const String anonymousUser = 'anonymous';
-
   FirebaseStorage storage = FirebaseStorage.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   String imageName;
   Map<String, double> heightMap = {};
@@ -34,21 +33,11 @@ class _FirebaseImageState extends State<FirebaseImage> {
 
   @override
   void initState() {
-    this.imageName = this.image.fullPath.toString().split('/')[2];
-
+    List<String> path = this.image.fullPath.toString().split('/');
+    this.imageName = path[2];
     firestore
         .collection('users')
-        .doc(anonymousUser)
-        .collection('images')
-        .doc(this.imageName)
-        .get()
-        .then((value) {
-      this.heightMap[value.id] = value.data()['height'];
-      this.widthMap[value.id] = value.data()['width'];
-    });
-    firestore
-        .collection('users')
-        .doc(_getCurrentUser())
+        .doc(path[1])
         .collection('images')
         .doc(this.imageName)
         .get()
@@ -57,8 +46,7 @@ class _FirebaseImageState extends State<FirebaseImage> {
         this.heightMap[value.id] = value.data()['height'];
         this.widthMap[value.id] = value.data()['width'];
       } catch (_) {
-        print(
-            'Error (_FirebaseImageState): Value not found for user: ${_getCurrentUser()}. Tried to look at image: ${this.imageName}');
+        print('Error (firebase_image): Image $imageName not found');
       }
     });
 
@@ -115,15 +103,6 @@ class _FirebaseImageState extends State<FirebaseImage> {
             }),
       ],
     );
-  }
-
-  String _getCurrentUser() {
-    User user = FirebaseAuth.instance.currentUser;
-    if (user.isAnonymous) {
-      return anonymousUser;
-    } else {
-      return user.uid;
-    }
   }
 
   Future _loadImage(Reference ref) async {

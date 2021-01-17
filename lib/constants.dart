@@ -52,3 +52,5 @@ const double kHeaderWidthMultiplier = 3 / 8;
 const double kRadialMenuDistance = 52 / 100;
 const double kIndentDistance = 50.0;
 const double kLineSpacing = 12.5;
+
+const String kAnonymousUser = 'anonymous';

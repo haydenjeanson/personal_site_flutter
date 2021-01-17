@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_site_flutter/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Util {
@@ -7,6 +9,15 @@ class Util {
       await launch(url);
     } else {
       throw 'Error(Util.launchURL): Could not launch $url';
+    }
+  }
+
+  static String getCurrentUser(FirebaseAuth auth) {
+    User user = FirebaseAuth.instance.currentUser;
+    if (user.isAnonymous) {
+      return kAnonymousUser;
+    } else {
+      return user.uid;
     }
   }
 }
