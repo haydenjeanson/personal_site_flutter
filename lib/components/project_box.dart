@@ -33,8 +33,11 @@ class ProjectBox extends StatelessWidget {
           child: ElevatedButton(
             onPressed: this.onPressed == null ? () {} : this.onPressed,
             child: Container(
-              child: Text(this.label == null ? '' : this.label,
-                  style: kNavTextStyle),
+              child: Text(
+                this.label == null ? '' : this.label,
+                style: kNavTextStyle.copyWith(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
