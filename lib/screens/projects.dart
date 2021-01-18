@@ -65,10 +65,16 @@ class _ProjectsState extends State<Projects> {
                       padding: const EdgeInsets.all(kDefaultPad),
                       child: GridView.count(
                         crossAxisSpacing: 5.0,
-                        crossAxisCount: ((MediaQuery.of(context).size.width -
-                                leftWidth -
-                                (kDefaultPad * 2)) ~/
-                            300),
+                        crossAxisCount: (((MediaQuery.of(context).size.width -
+                                        leftWidth -
+                                        (kDefaultPad * 2)) ~/
+                                    300) <
+                                1)
+                            ? 1
+                            : ((MediaQuery.of(context).size.width -
+                                    leftWidth -
+                                    (kDefaultPad * 2)) ~/
+                                300),
                         children: [
                           ProjectBox(
                             imagePath: 'images/camera.jpg',
