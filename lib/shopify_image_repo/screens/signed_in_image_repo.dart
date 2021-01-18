@@ -91,7 +91,10 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
               ],
             ),
           ),
-          Sidebar(),
+          Sidebar(
+            githubUrl:
+                'https://github.com/haydenjeanson/personal_site_flutter/tree/master/lib/shopify_image_repo',
+          ),
           Positioned(
             width: leftWidth - 8, // 8 is the pad
             left: 8,

@@ -81,7 +81,10 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
             ),
           ),
-          Sidebar(),
+          Sidebar(
+            githubUrl:
+                'https://github.com/haydenjeanson/personal_site_flutter/tree/master/lib/shopify_image_repo',
+          ),
         ],
       ),
     );

@@ -5,11 +5,19 @@ import 'package:personal_site_flutter/components/radial_menu.dart';
 import 'package:personal_site_flutter/constants.dart';
 
 class Sidebar extends StatefulWidget {
+  final String githubUrl;
+
+  Sidebar({this.githubUrl});
+
   @override
-  _SidebarState createState() => _SidebarState();
+  _SidebarState createState() => _SidebarState(this.githubUrl);
 }
 
 class _SidebarState extends State<Sidebar> {
+  final String githubUrl;
+
+  _SidebarState(this.githubUrl);
+
   @override
   Widget build(BuildContext context) {
     final double radialDistance =
@@ -37,7 +45,10 @@ class _SidebarState extends State<Sidebar> {
                   shape: BoxShape.circle),
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: GithubButton(url: 'https://github.com/haydenjeanson'),
+                child: GithubButton(
+                    url: this.githubUrl == null
+                        ? 'https://github.com/haydenjeanson'
+                        : this.githubUrl),
               ),
             ),
           ),
