@@ -171,11 +171,11 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
         final imageBytes = (reader.result as String)
             .replaceFirst(RegExp(r'data:image/[^;]+;base64,'), '');
         ui.Image image = await decodeImageFromList(base64.decode(imageBytes));
-        print('1');
+
         // Upload image to Firebase Storage
         fb.StorageReference storageRef =
             fb.storage().ref('images/${Util.getCurrentUser(auth)}/$imageName');
-        print('2');
+
         fb.UploadTaskSnapshot uploadTaskSnapshot =
             await storageRef.put(input.files.first).future;
 
