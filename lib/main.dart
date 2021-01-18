@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/screens/contact_me.dart';
 import 'package:personal_site_flutter/screens/projects.dart';
+import 'package:personal_site_flutter/shopify_image_repo/screens/create_account.dart';
 import 'package:personal_site_flutter/shopify_image_repo/screens/signed_in_image_repo.dart';
 import 'package:personal_site_flutter/shopify_image_repo/screens/shopify_image_repo.dart';
 import 'package:personal_site_flutter/screens/welcome_screen.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           ContactMe.kID: (context) => ContactMe(),
           ShopifyImageRepo.kID: (context) => ShopifyImageRepo(),
           SignedInImageRepo.kID: (context) => SignedInImageRepo(),
+          CreateAccount.kID: (context) => CreateAccount(),
         });
   }
 }

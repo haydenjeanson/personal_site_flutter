@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,6 +31,9 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
 
   @override
   Widget build(BuildContext context) {
+    String displayName = auth.currentUser.displayName == null
+        ? 'Anonymous'
+        : auth.currentUser.displayName;
     double leftWidth = MediaQuery.of(context).size.width / 8;
     return Scaffold(
       body: Stack(
@@ -92,6 +93,29 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
           ),
           Sidebar(),
           Positioned(
+            width: leftWidth - 8, // 8 is the pad
+            left: 8,
+            bottom: 80,
+            child: AnimatedBox(
+                opacity: 0.7,
+                colour: Theme.of(context).colorScheme.secondary,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Signed in as:',
+                        style: kNavTextStyle.copyWith(fontSize: 23),
+                      ),
+                      Text(
+                        '$displayName',
+                        style: kNavTextStyle.copyWith(fontSize: 23),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+          Positioned(
             left: 8.0,
             bottom: 40.0,
             child: _TextButton(
@@ -147,21 +171,17 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
         final imageBytes = (reader.result as String)
             .replaceFirst(RegExp(r'data:image/[^;]+;base64,'), '');
         ui.Image image = await decodeImageFromList(base64.decode(imageBytes));
-
+        print('1');
         // Upload image to Firebase Storage
         fb.StorageReference storageRef =
             fb.storage().ref('images/${Util.getCurrentUser(auth)}/$imageName');
+        print('2');
         fb.UploadTaskSnapshot uploadTaskSnapshot =
             await storageRef.put(input.files.first).future;
 
         // Upload image info to Firebase Firestore
         String imageUrl =
             (await uploadTaskSnapshot.ref.getDownloadURL()).toString();
-
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(Util.getCurrentUser(auth))
-            .set({'exists': true});
 
         FirebaseFirestore.instance
             .collection('users')
@@ -200,33 +220,33 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
       }
     });
 
-    imageNames.forEach((imageName) {
-      images.add(_addGridColumn(imageMap, imageName));
-    });
+    for (String imageName in imageNames) {
+      DocumentSnapshot userData = await users.doc(imageMap[imageName]).get();
 
-    return images;
-  }
+      String author = userData.data()['displayName'];
 
-  Column _addGridColumn(Map<String, String> imageMap, String imageName) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Flexible(
-          child: FirebaseImage(
-              this.storage.ref('images/${imageMap[imageName]}/$imageName')),
-        ),
-        AnimatedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Uploaded by: ${imageMap[imageName]}',
-              style: kParagraphTextStyle.copyWith(fontSize: 18),
-              textAlign: TextAlign.center,
+      images.add(Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Flexible(
+            child: FirebaseImage(
+                this.storage.ref('images/${imageMap[imageName]}/$imageName')),
+          ),
+          AnimatedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Uploaded by: $author',
+                style: kParagraphTextStyle.copyWith(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      ));
+    }
+
+    return images;
   }
 }
 

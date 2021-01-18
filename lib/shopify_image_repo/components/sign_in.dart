@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:personal_site_flutter/shopify_image_repo/screens/create_account.dart';
 import 'package:personal_site_flutter/util.dart';
 
 class SignIn extends StatefulWidget {
@@ -29,14 +31,6 @@ class _SignInState extends State<SignIn> {
 
     return await this.auth.signInWithPopup(googleProvider);
   }
-
-  // Future<void> _addUser(String uid) {
-  //   return FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(uid)
-  //       .collection('images')
-  //       .add();
-  // }
 
   @override
   void initState() {
@@ -75,25 +69,26 @@ class _SignInState extends State<SignIn> {
                         Navigator.pushNamed(context, this.routeOnAuth);
                       UserCredential user = await googleSignIn();
                       if (user != null) {
-                        // bool exists = false;
-                        // FirebaseFirestore.instance
-                        //     .collection('users')
-                        //     .get()
-                        //     .then(
-                        //   (value) {
-                        //     value.docs
-                        //         .takeWhile((value) => user.user.uid != value.id)
-                        //         .forEach((doc) {
-                        //       if (user.user.uid == doc.id) {
-                        //         exists = true;
-                        //       }
-                        //     });
-                        //   },
-                        // );
+                        bool exists = false;
+                        exists = await FirebaseFirestore.instance
+                            .collection('users')
+                            .get()
+                            .then(
+                          (value) {
+                            for (QueryDocumentSnapshot doc in value.docs) {
+                              if (user.user.uid == doc.id) {
+                                return true;
+                              }
+                            }
 
-                        // if (!exists) {
-                        //   _addUser(user.user.uid);
-                        // }
+                            return false;
+                          },
+                        );
+
+                        if (!exists) {
+                          Navigator.pushNamed(context, CreateAccount.kID);
+                          return;
+                        }
                         Navigator.pushNamed(context, this.routeOnAuth);
                       }
                     },
