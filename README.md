@@ -1,16 +1,8 @@
-# flutter_web_test
+# Hayden's Personal Site, Made with Flutter
 
-A new Flutter project.
+If you are looking for the website url, here it is:\
+(http://haydenjeanson.me/#welcome_screen)[http://haydenjeanson.me/#welcome_screen]
+If you are looking for the html/javascript for my website, you can find it here:\
+(https://github.com/haydenjeanson/haydenjeanson.github.io)[https://github.com/haydenjeanson/haydenjeanson.github.io]
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The repository you are currently in holds the files and folders of the unbuilt flutter project. The android and ios folders are basically unused, as this project is for the web. You can find assets for the site in the fonts and images folders. The lib folder holds all of the flutter widgets I have designed. It has multiple screens and many custom components to go on those screens. Have a look around!
