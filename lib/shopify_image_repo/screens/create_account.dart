@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
+import 'package:personal_site_flutter/components/name_container.dart';
 import 'package:personal_site_flutter/components/sidebar.dart';
 import 'package:personal_site_flutter/constants.dart';
 import 'package:personal_site_flutter/shopify_image_repo/screens/signed_in_image_repo.dart';
@@ -28,6 +29,19 @@ class _CreateAccountState extends State<CreateAccount> {
             foregroundDecoration: BoxDecoration(
               backgroundBlendMode: BlendMode.saturation,
               color: Colors.grey,
+            ),
+          ),
+          Positioned(
+            height:
+                MediaQuery.of(context).size.height * kHeaderHeightMultiplier,
+            width: MediaQuery.of(context).size.width * kHeaderWidthMultiplier,
+            left: ((MediaQuery.of(context).size.width) -
+                    (MediaQuery.of(context).size.width *
+                        kHeaderWidthMultiplier)) /
+                2,
+            top: 0,
+            child: NameContainer(
+              text: 'Hayden Jeanson',
             ),
           ),
           Center(

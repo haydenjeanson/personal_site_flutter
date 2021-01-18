@@ -54,3 +54,5 @@ const double kIndentDistance = 50.0;
 const double kLineSpacing = 12.5;
 
 const String kAnonymousUser = 'anonymous';
+const double kLeftWidthMultiplier = 1 / 8;
+const double kDefaultPad = 8.0;

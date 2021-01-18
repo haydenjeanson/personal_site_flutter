@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_flutter/constants.dart';
 
 class BodyWidget extends StatelessWidget {
   final Widget child;
@@ -17,7 +18,7 @@ class BodyWidget extends StatelessWidget {
             ),
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(kDefaultPad),
                 child: this.child,
               ),
             ),

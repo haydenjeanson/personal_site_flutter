@@ -49,6 +49,7 @@ class _SignInState extends State<SignIn> {
         constraints: BoxConstraints.tight(
             Size(MediaQuery.of(context).size.width / 2, 580)),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               constraints: BoxConstraints.tight(Size(200, 50)),

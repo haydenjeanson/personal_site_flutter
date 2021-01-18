@@ -34,7 +34,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
     String displayName = auth.currentUser.displayName == null
         ? 'Anonymous'
         : auth.currentUser.displayName;
-    double leftWidth = MediaQuery.of(context).size.width / 8;
+    double leftWidth = MediaQuery.of(context).size.width * kLeftWidthMultiplier;
     return Scaffold(
       body: Stack(
         children: [
@@ -70,7 +70,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                 ),
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(kDefaultPad),
                     child: FutureBuilder(
                       future: _allFirebaseImages(),
                       builder: (context, snapshot) {
@@ -96,8 +96,8 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                 'https://github.com/haydenjeanson/personal_site_flutter/tree/master/lib/shopify_image_repo',
           ),
           Positioned(
-            width: leftWidth - 8, // 8 is the pad
-            left: 8,
+            width: leftWidth - kDefaultPad,
+            left: kDefaultPad,
             bottom: 80,
             child: AnimatedBox(
                 opacity: 0.7,
@@ -119,7 +119,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
                 )),
           ),
           Positioned(
-            left: 8.0,
+            left: kDefaultPad,
             bottom: 40.0,
             child: _TextButton(
               auth: auth,
@@ -131,8 +131,8 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
             ),
           ),
           Positioned(
-            left: 8.0,
-            bottom: 8.0,
+            left: kDefaultPad,
+            bottom: kDefaultPad,
             child: _TextButton(
               auth: auth,
               text: 'Sign Out',
@@ -237,7 +237,7 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
           ),
           AnimatedBox(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(kDefaultPad),
               child: Text(
                 'Uploaded by: $author',
                 style: kParagraphTextStyle.copyWith(fontSize: 18),
@@ -274,7 +274,8 @@ class _TextButton extends StatelessWidget {
         minimumSize: MaterialStateProperty.resolveWith(
             (states) => Size(this.leftWidth, 1)),
         padding: MaterialStateProperty.resolveWith(
-          (states) => EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          (states) =>
+              EdgeInsets.symmetric(horizontal: 15, vertical: kDefaultPad),
         ),
         shape: MaterialStateProperty.resolveWith(
           (states) => RoundedRectangleBorder(

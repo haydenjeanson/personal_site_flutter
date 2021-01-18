@@ -215,8 +215,8 @@ class RadialAnimation extends StatelessWidget {
             width: buttonWidth,
             height: buttonHeight,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.5),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPad, vertical: 2.5),
               child: FittedBox(child: AutoSizeText(text, style: kNavTextStyle)),
             ),
           ),
