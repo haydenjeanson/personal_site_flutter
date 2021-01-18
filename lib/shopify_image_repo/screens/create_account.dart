@@ -111,7 +111,7 @@ class _CreateAccountState extends State<CreateAccount> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          title: Text('AlertDialog Title'),
+          title: Text('Confirm Selection'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

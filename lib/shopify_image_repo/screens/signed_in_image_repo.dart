@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:personal_site_flutter/components/animated_box.dart';
 import 'package:personal_site_flutter/components/background.dart';
 import 'package:personal_site_flutter/components/name_container.dart';
@@ -124,9 +125,21 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
             child: _TextButton(
               auth: auth,
               text: 'Upload Image',
+              colour: auth.currentUser.isAnonymous
+                  ? Theme.of(context).colorScheme.surface
+                  : Theme.of(context).colorScheme.primary,
               leftWidth: leftWidth,
               onPressed: () async {
-                await _uploadImage();
+                if (auth.currentUser.isAnonymous) {
+                  bool signOut = false;
+                  signOut = await _noAnonymousUpload();
+
+                  if (signOut) {
+                    _signOut();
+                  }
+                } else {
+                  await _uploadImage();
+                }
               },
             ),
           ),
@@ -137,16 +150,20 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
               auth: auth,
               text: 'Sign Out',
               leftWidth: leftWidth,
-              onPressed: () {
-                this.auth.signOut();
-
-                Navigator.pushReplacementNamed(context, ShopifyImageRepo.kID);
-              },
+              onPressed: () => _signOut(),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _signOut() {
+    this.auth.signOut();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacementNamed(context, ShopifyImageRepo.kID);
+    });
+    return;
   }
 
   _uploadImage() async {
@@ -251,6 +268,54 @@ class _SignedInImageRepoState extends State<SignedInImageRepo> {
 
     return images;
   }
+
+  Future<bool> _noAnonymousUpload() async {
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          title: Text(
+            'Anonymous users cannot upload!',
+            textAlign: TextAlign.center,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'Click "Sign Out" to be taken back to the sign in page, where you can sign in with Google.',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              style: ButtonStyle(),
+              child: Text(
+                'Continue Anonymously',
+                style: kNavTextStyle,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            ElevatedButton(
+              style: ButtonStyle(),
+              child: Text(
+                'Sign Out',
+                style: kNavTextStyle,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class _TextButton extends StatelessWidget {
@@ -260,29 +325,36 @@ class _TextButton extends StatelessWidget {
     @required this.text,
     @required this.leftWidth,
     @required this.onPressed,
+    this.colour,
   }) : super(key: key);
 
   final FirebaseAuth auth;
   final String text;
   final double leftWidth;
   final Function onPressed;
+  final Color colour;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.resolveWith(
-            (states) => Size(this.leftWidth, 1)),
-        padding: MaterialStateProperty.resolveWith(
-          (states) =>
-              EdgeInsets.symmetric(horizontal: 15, vertical: kDefaultPad),
-        ),
-        shape: MaterialStateProperty.resolveWith(
-          (states) => RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
+          minimumSize: MaterialStateProperty.resolveWith(
+              (states) => Size(this.leftWidth, 1)),
+          padding: MaterialStateProperty.resolveWith(
+            (states) =>
+                EdgeInsets.symmetric(horizontal: 15, vertical: kDefaultPad),
           ),
-        ),
-      ),
+          shape: MaterialStateProperty.resolveWith(
+            (states) => RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (this.colour != null) {
+              return this.colour;
+            } else
+              return Theme.of(context).colorScheme.primary;
+          })),
       onPressed: this.onPressed,
       child: Text(
         this.text,
