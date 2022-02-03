@@ -78,7 +78,7 @@ class _ProjectsState extends State<Projects> {
                         children: [
                           ProjectBox(
                             imagePath: 'images/camera.jpg',
-                            label: 'Shopify Challenge: Image Repository',
+                            label: 'Image Repository',
                             onPressed: () => Navigator.pushReplacementNamed(
                                 context, ShopifyImageRepo.kID),
                           ),
@@ -105,6 +105,12 @@ class _ProjectsState extends State<Projects> {
                             label: '5 Guys Discord Bot',
                             onPressed: () => Util.launchURL(
                                 'https://github.com/haydenjeanson/5GuysBot'),
+                          ),
+                          ProjectBox(
+                            imagePath: 'images/kovaaks_logo.jpg',
+                            label: 'KovaaK\'s Stat Reader',
+                            onPressed: () => Util.launchURL(
+                                'https://github.com/haydenjeanson/KovaakStatReader'),
                           ),
                         ],
                       ),

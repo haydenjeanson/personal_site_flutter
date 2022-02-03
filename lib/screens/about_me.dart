@@ -64,7 +64,7 @@ class _AboutMeState extends State<AboutMe> {
                           children: [
                             TextSpan(
                               text:
-                                  "Hi, and welcome to my site! I'm a fourth year BSc computer science student at Wilfrid Laurier University. I have a passion for software development, and I love to solve difficult problems. You can find some of my favourite recent programming related activities below. All of these and more can be also be found on my ",
+                                  "Hi, and welcome to my site! I'm a fifth year honours BSc computer science student at Wilfrid Laurier University. I have a passion for software development, and I love to solve difficult problems. You can find some of my favourite programming projects below. All of these and more can be also be found on my ",
                               style: kParagraphTextStyle,
                             ),
                             TextSpan(
@@ -91,7 +91,7 @@ class _AboutMeState extends State<AboutMe> {
                         FavActivity3(),
                         _ActivityDivider(),
                         Text(
-                          "Outside of coding, I love to spend time with my girlfriend and play a variety of games. My favourite games are Valorant and Magic: the Gathering, but my friends and I play a variety of games that tend to change week to week.",
+                          "Outside of coding, I love to spend time with my fiancée and play a variety of games. My favourite games are Valorant and Magic: the Gathering, but my friends and I play a variety of games that tend to change week to week.",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 25),

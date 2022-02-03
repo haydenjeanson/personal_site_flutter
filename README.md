@@ -1,7 +1,7 @@
 # Hayden's Personal Site, Made with Flutter
 
 If you are looking for the website url, here it is:\
-http://haydenjeanson.me/#welcome_screen \
+http://haydenjeanson.xyz/#welcome_screen \
 If you are looking for the html/javascript for my website, you can find it here:\
 https://github.com/haydenjeanson/haydenjeanson.github.io 
 

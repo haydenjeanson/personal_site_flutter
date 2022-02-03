@@ -13,7 +13,7 @@ class FavActivity2 extends StatelessWidget {
                 url: 'https://github.com/haydenjeanson/AdventOfCode2020'),
             Flexible(
               child: Text(
-                "2) Advent of Code (AOC) 2020. Although I have not yet had the time to complete all of it, AOC has been a blast so far! Some Takeaways:",
+                "2) Kovaak Stat Reader. This python desktop application preprocesses and graphs score data for scenarios in the aim training game KovaaK's. ",
                 style: kParagraphTextStyle,
               ),
             ),
@@ -26,15 +26,15 @@ class FavActivity2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "• Coding challenges are a lot of fun!",
+                "• Pandas used for reading KovaaK's csv files and preprocessing done in a Pandas dataframe.",
                 style: kParagraphTextStyle,
               ),
               Text(
-                "• On difficult problems, it helps a lot to reason with pen and paper or a whiteboard prior to coding.",
+                "• Matplotlib used to graph the Pandas dataframes, showing how the users score changes over time.",
                 style: kParagraphTextStyle,
               ),
               Text(
-                "• I learn data structures and algorithms best by practicing! I had to relearn a lot of old concepts (like pathing algorithms), but I understand them a lot better now.",
+                "• Jupyter Notebook used for prototyping.",
                 style: kParagraphTextStyle,
               ),
             ],
