@@ -64,7 +64,7 @@ class _AboutMeState extends State<AboutMe> {
                           children: [
                             TextSpan(
                               text:
-                                  "Hi, and welcome to my site! I'm a fifth year honours BSc computer science student at Wilfrid Laurier University. I have a passion for software development, and I love to solve difficult problems. You can find some of my favourite programming projects below. All of these and more can be also be found on my ",
+                                  "Hi, and welcome to my site! I'm a professional software developer with a B.Sc. Computer Science from Wilfrid Laurier University. I have a passion for software development, and I love to solve difficult problems. You can find some of my favourite programming projects below. All of these and more can be also be found on my ",
                               style: kParagraphTextStyle,
                             ),
                             TextSpan(
